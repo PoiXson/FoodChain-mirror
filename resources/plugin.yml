@@ -1,0 +1,26 @@
+name: ${project.name}
+main: com.poixson.foodchain.FoodChainPlugin
+version: ${project.version}
+api-version: ${spigot-short-version}
+depend: [ pxnCommonBukkit ]
+authors: [ lorenzop ]
+website: ${project.url}
+description: ${project.description}
+commands:
+    foodchain:
+        description: "I don't feel like eating this"
+        usage: "Usage: /foodchain <cmd>"
+permission-message: "You don't have permission to use this command."
+permissions:
+    foodchain.*:
+        default: op
+        description: Gives access to all food chain commands
+        children:
+            foodchain.reset: true
+            foodchain.set:   true
+    foodchain.reset:
+        default: op
+        description: Reset a players food chain
+    foodchain.set:
+        default: op
+        description: Set a players food chain to some level

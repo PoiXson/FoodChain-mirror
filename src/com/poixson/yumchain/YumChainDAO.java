@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -65,7 +66,7 @@ public class YumChainDAO {
 		this.foods.put(Material.MILK_BUCKET,     Boolean.FALSE);
 		this.foods.put(Material.HONEY_BOTTLE,    Boolean.FALSE);
 		Bukkit.getPlayer(this.uuid)
-			.sendMessage(this.getRandomYuck());
+			.sendMessage(ChatColor.AQUA+this.getRandomYuck());
 	}
 
 
@@ -125,7 +126,8 @@ public class YumChainDAO {
 				final int total = this.getFoodsCount();
 				event.setFoodLevel(lvl + ate);
 				player.sendMessage(String.format(
-					"%s %d/%d",
+					"%s%s %d/%d",
+					ChatColor.AQUA,
 					this.getRandomYum(),
 					ate, total
 				));

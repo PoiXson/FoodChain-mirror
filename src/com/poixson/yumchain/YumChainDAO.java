@@ -125,10 +125,10 @@ public class YumChainDAO {
 					this.quietyum.set(false);
 				} else {
 					player.sendMessage(String.format(
-						"%s%s %d/%d",
+						"%s [%d/%d] %s",
 						ChatColor.AQUA,
-						this.getRandomYum(),
-						ate, total
+						ate, total,
+						this.getRandomYum()
 					));
 				}
 			}

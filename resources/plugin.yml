@@ -17,10 +17,6 @@ permissions:
         description: Gives access to all food chain commands
         children:
             foodchain.reset: true
-            foodchain.set:   true
     foodchain.reset:
         default: op
         description: Reset a players food chain
-    foodchain.set:
-        default: op
-        description: Set a players food chain to some level

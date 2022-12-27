@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
+import com.poixson.foodchain.FoodChainDAO;
 import com.poixson.foodchain.FoodChainPlugin;
 
 
@@ -27,7 +28,7 @@ public class FoodChainCommands implements CommandExecutor {
 
 
 	public void register() {
-		final PluginCommand cmd = this.plugin.getCommand("roads");
+		final PluginCommand cmd = this.plugin.getCommand("foodchain");
 		cmd.setExecutor(this);
 		this.cmds.add(cmd);
 		cmd.setTabCompleter( new FoodChainTabCompleter() );
@@ -49,12 +50,12 @@ public class FoodChainCommands implements CommandExecutor {
 		if (numargs >= 1) {
 			switch (args[0]) {
 			case "reset": {
-//TODO
+				final FoodChainDAO chain =
+					this.plugin.getFoodChainHandler()
+						.getFoodChain(player);
+				chain.reset();
 				return true;
 			}
-			case "set":
-//TODO
-				return true;
 			default: break;
 			}
 		}

@@ -1,4 +1,4 @@
-package com.poixson.foodchain;
+package com.poixson.yumchain;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,15 +14,15 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 
-public class FoodChainHandler implements Listener {
+public class YumChainHandler implements Listener {
 
-	protected final FoodChainPlugin plugin;
+	protected final YumChainPlugin plugin;
 
-	protected final ConcurrentHashMap<UUID, FoodChainDAO> chains = new ConcurrentHashMap<UUID, FoodChainDAO>();
+	protected final ConcurrentHashMap<UUID, YumChainDAO> chains = new ConcurrentHashMap<UUID, YumChainDAO>();
 
 
 
-	public FoodChainHandler(final FoodChainPlugin plugin) {
+	public YumChainHandler(final YumChainPlugin plugin) {
 		this.plugin = plugin;
 	}
 
@@ -41,8 +41,8 @@ public class FoodChainHandler implements Listener {
 	@EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
 	public void onPlayerItemConsume(final PlayerItemConsumeEvent event) {
 		final Player player = event.getPlayer();
-		final FoodChainDAO chain = this.getFoodChain(player);
-		if (chain == null) throw new NullPointerException("Unable to get food chain dao");
+		final YumChainDAO chain = this.getYumChain(player);
+		if (chain == null) throw new NullPointerException("Unable to get yum chain dao");
 		chain.consume(event);
 	}
 
@@ -50,28 +50,28 @@ public class FoodChainHandler implements Listener {
 	public void onFoodLevelChange(final FoodLevelChangeEvent event) {
 		if (EntityType.PLAYER.equals(event.getEntityType())) {
 			final Player player = (Player) event.getEntity();
-			final FoodChainDAO chain = this.getFoodChain(player);
-			if (chain == null) throw new NullPointerException("Unable to get food chain dao");
+			final YumChainDAO chain = this.getYumChain(player);
+			if (chain == null) throw new NullPointerException("Unable to get yum chain dao");
 			chain.hunger(event, player);
 		}
 	}
 
 
 
-	public FoodChainDAO getFoodChain(final Player player) {
-		return this.getFoodChain(player.getUniqueId());
+	public YumChainDAO getYumChain(final Player player) {
+		return this.getYumChain(player.getUniqueId());
 	}
-	public FoodChainDAO getFoodChain(final UUID uuid) {
+	public YumChainDAO getYumChain(final UUID uuid) {
 		// existing
 		{
-			final FoodChainDAO chain = this.chains.get(uuid);
+			final YumChainDAO chain = this.chains.get(uuid);
 			if (chain != null)
 				return chain;
 		}
 		// new instance
 		{
-			final FoodChainDAO chain = new FoodChainDAO(uuid);
-			final FoodChainDAO existing = this.chains.putIfAbsent(uuid, chain);
+			final YumChainDAO chain = new YumChainDAO(uuid);
+			final YumChainDAO existing = this.chains.putIfAbsent(uuid, chain);
 			return (existing==null ? chain : existing);
 		}
 	}

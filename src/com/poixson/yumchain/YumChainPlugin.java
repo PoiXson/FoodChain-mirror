@@ -1,4 +1,4 @@
-package com.poixson.foodchain;
+package com.poixson.yumchain;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
@@ -8,23 +8,23 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.poixson.foodchain.listeners.FoodChainCommands;
+import com.poixson.yumchain.listeners.YumChainCommands;
 
 
-public class FoodChainPlugin extends JavaPlugin {
-	public static final String LOG_PREFIX  = "[FoodChain] ";
-	public static final String CHAT_PREFIX = ChatColor.AQUA + "[FoodChain] " + ChatColor.WHITE;
+public class YumChainPlugin extends JavaPlugin {
+	public static final String LOG_PREFIX  = "[YUM] ";
+	public static final String CHAT_PREFIX = ChatColor.AQUA + "[YUM] " + ChatColor.WHITE;
 	public static final Logger log = Logger.getLogger("Minecraft");
 
-	protected static final AtomicReference<FoodChainPlugin> instance = new AtomicReference<FoodChainPlugin>(null);
+	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
 
 	// listeners
-	protected final AtomicReference<FoodChainCommands> commandListener = new AtomicReference<FoodChainCommands>(null);
-	protected final AtomicReference<FoodChainHandler> foodchains = new AtomicReference<FoodChainHandler>(null);
+	protected final AtomicReference<YumChainCommands> commandListener = new AtomicReference<YumChainCommands>(null);
+	protected final AtomicReference<YumChainHandler> yumchains = new AtomicReference<YumChainHandler>(null);
 
 
 
-	public FoodChainPlugin() {
+	public YumChainPlugin() {
 	}
 
 
@@ -35,16 +35,16 @@ public class FoodChainPlugin extends JavaPlugin {
 			throw new RuntimeException("Plugin instance already enabled?");
 		// commands listener
 		{
-			final FoodChainCommands listener = new FoodChainCommands(this);
-			final FoodChainCommands previous = this.commandListener.getAndSet(listener);
+			final YumChainCommands listener = new YumChainCommands(this);
+			final YumChainCommands previous = this.commandListener.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
 			listener.register();
 		}
-		// food chain handler
+		// yum chain handler
 		{
-			final FoodChainHandler listener = new FoodChainHandler(this);
-			final FoodChainHandler previous = this.foodchains.getAndSet(listener);
+			final YumChainHandler listener = new YumChainHandler(this);
+			final YumChainHandler previous = this.yumchains.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
 			listener.register();
@@ -55,7 +55,7 @@ public class FoodChainPlugin extends JavaPlugin {
 	public void onDisable() {
 		// commands listener
 		{
-			final FoodChainCommands listener = this.commandListener.getAndSet(null);
+			final YumChainCommands listener = this.commandListener.getAndSet(null);
 			if (listener != null)
 				listener.unregister();
 		}
@@ -72,8 +72,8 @@ public class FoodChainPlugin extends JavaPlugin {
 
 
 
-	public FoodChainHandler getFoodChainHandler() {
-		return this.foodchains.get();
+	public YumChainHandler getYumChainHandler() {
+		return this.yumchains.get();
 	}
 
 

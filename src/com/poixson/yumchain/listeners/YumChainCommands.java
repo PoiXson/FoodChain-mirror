@@ -1,4 +1,4 @@
-package com.poixson.foodchain.listeners;
+package com.poixson.yumchain.listeners;
 
 import java.util.ArrayList;
 
@@ -8,30 +8,30 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
-import com.poixson.foodchain.FoodChainDAO;
-import com.poixson.foodchain.FoodChainPlugin;
+import com.poixson.yumchain.YumChainDAO;
+import com.poixson.yumchain.YumChainPlugin;
 
 
-public class FoodChainCommands implements CommandExecutor {
-	public static final String CHAT_PREFIX = FoodChainPlugin.CHAT_PREFIX;
+public class YumChainCommands implements CommandExecutor {
+	public static final String CHAT_PREFIX = YumChainPlugin.CHAT_PREFIX;
 
-	protected final FoodChainPlugin plugin;
+	protected final YumChainPlugin plugin;
 
 	protected final ArrayList<PluginCommand> cmds = new ArrayList<PluginCommand>();
 
 
 
-	public FoodChainCommands(final FoodChainPlugin plugin) {
+	public YumChainCommands(final YumChainPlugin plugin) {
 		this.plugin = plugin;
 	}
 
 
 
 	public void register() {
-		final PluginCommand cmd = this.plugin.getCommand("foodchain");
+		final PluginCommand cmd = this.plugin.getCommand("yumchain");
 		cmd.setExecutor(this);
 		this.cmds.add(cmd);
-		cmd.setTabCompleter( new FoodChainTabCompleter() );
+		cmd.setTabCompleter( new YumChainTabCompleter() );
 	}
 	public void unregister() {
 		for (final PluginCommand cmd : this.cmds) {
@@ -50,9 +50,7 @@ public class FoodChainCommands implements CommandExecutor {
 		if (numargs >= 1) {
 			switch (args[0]) {
 			case "reset": {
-				final FoodChainDAO chain =
-					this.plugin.getFoodChainHandler()
-						.getFoodChain(player);
+				final YumChainDAO chain = this.plugin.getYumChain(player);
 				chain.reset();
 				return true;
 			}

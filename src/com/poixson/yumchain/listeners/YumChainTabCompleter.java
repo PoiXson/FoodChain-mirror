@@ -1,4 +1,4 @@
-package com.poixson.foodchain.listeners;
+package com.poixson.yumchain.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 
-public class FoodChainTabCompleter implements TabCompleter {
+public class YumChainTabCompleter implements TabCompleter {
 
 
 
-	public FoodChainTabCompleter() {
+	public YumChainTabCompleter() {
 	}
 
 

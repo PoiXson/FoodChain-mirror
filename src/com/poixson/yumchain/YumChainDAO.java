@@ -1,4 +1,4 @@
-package com.poixson.foodchain;
+package com.poixson.yumchain;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 
-public class FoodChainDAO {
+public class YumChainDAO {
 	public static final double HUNGER_MULTIPLIER = 4.0;
 
 	public final UUID uuid;
@@ -25,7 +25,7 @@ public class FoodChainDAO {
 
 
 
-	public FoodChainDAO(final UUID uuid) {
+	public YumChainDAO(final UUID uuid) {
 		this.uuid = uuid;
 		this.reset();
 	}

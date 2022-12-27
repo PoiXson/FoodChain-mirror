@@ -89,6 +89,7 @@ public class YumChainDAO {
 			this.handle_next_feed.set(Utils.GetMS());
 			return;
 		}
+		this.handle_next_feed.set(Utils.GetMS());
 		// already ate
 		if (ate.booleanValue()) {
 			final Iterator<Entry<Material, Boolean>> it = this.foods.entrySet().iterator();
@@ -160,7 +161,7 @@ public class YumChainDAO {
 		return "Yum!";
 	}
 	public String getRandomYuck() {
-		while (true) {
+		for (int i=0; i<5; i++) {
 			final int rnd = NumberUtils.GetNewRandom(0, 5, this.lastrnd.get());
 			this.lastrnd.set(rnd);
 			switch (rnd) {
@@ -169,6 +170,7 @@ public class YumChainDAO {
 			case 3: return "Eh..";
 			}
 		}
+		return "Yuck";
 	}
 
 

@@ -51,7 +51,7 @@ public class YumChainCommands implements CommandExecutor {
 			switch (args[0]) {
 			case "reset": {
 				final YumChainDAO chain = this.plugin.getYumChain(player);
-				chain.reset();
+				chain.reset(true);
 				return true;
 			}
 			default: break;

@@ -2,8 +2,8 @@ package com.poixson.yumchain;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -30,17 +30,21 @@ public class YumChainDAO {
 	protected final AtomicLong handle_next_feed = new AtomicLong(0L);
 
 	protected final AtomicInteger lastrnd = new AtomicInteger(0);
+	protected final AtomicBoolean quietyum = new AtomicBoolean(false);
 
 
 
 	public YumChainDAO(final UUID uuid) {
 		this.uuid = uuid;
-		this.reset();
+		this.reset(false);
 	}
 
 
 
 	public void reset() {
+		this.reset(true);
+	}
+	public void reset(final boolean sendmsg) {
 		this.foods.clear();
 		this.foods.put(Material.APPLE,           Boolean.FALSE);
 		this.foods.put(Material.MELON_SLICE,     Boolean.FALSE);
@@ -65,8 +69,10 @@ public class YumChainDAO {
 		this.foods.put(Material.RABBIT_STEW,     Boolean.FALSE);
 		this.foods.put(Material.MILK_BUCKET,     Boolean.FALSE);
 		this.foods.put(Material.HONEY_BOTTLE,    Boolean.FALSE);
-		Bukkit.getPlayer(this.uuid)
-			.sendMessage(ChatColor.AQUA+this.getRandomYuck());
+		if (sendmsg) {
+			Bukkit.getPlayer(this.uuid)
+				.sendMessage(ChatColor.AQUA+this.getRandomYuck());
+		}
 	}
 
 
@@ -92,21 +98,10 @@ public class YumChainDAO {
 		this.handle_next_feed.set(Utils.GetMS());
 		// already ate
 		if (ate.booleanValue()) {
-			final Iterator<Entry<Material, Boolean>> it = this.foods.entrySet().iterator();
-			while (it.hasNext()) {
-				final Entry<Material, Boolean> entry = it.next();
-				if (!type.equals(entry.getKey())) {
-					if (entry.getValue().booleanValue()) {
-						this.reset();
-						this.foods.put(type, Boolean.TRUE);
-						return;
-					}
-				}
-			}
+			this.reset(true);
+			this.quietyum.set(true);
 		}
-		// first time eating
 		this.foods.put(type, Boolean.TRUE);
-		return;
 	}
 
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
@@ -126,12 +121,16 @@ public class YumChainDAO {
 				final int ate   = this.getChainAte();
 				final int total = this.getFoodsCount();
 				event.setFoodLevel(lvl + ate);
-				player.sendMessage(String.format(
-					"%s%s %d/%d",
-					ChatColor.AQUA,
-					this.getRandomYum(),
-					ate, total
-				));
+				if (this.quietyum.get()) {
+					this.quietyum.set(false);
+				} else {
+					player.sendMessage(String.format(
+						"%s%s %d/%d",
+						ChatColor.AQUA,
+						this.getRandomYum(),
+						ate, total
+					));
+				}
 			}
 		}
 	}

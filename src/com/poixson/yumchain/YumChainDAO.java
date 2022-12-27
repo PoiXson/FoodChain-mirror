@@ -83,6 +83,7 @@ public class YumChainDAO {
 		Boolean ate = this.foods.get(type);
 		// food not in list
 		if (ate == null) {
+			this.quietyum.set(true);
 			switch (type) {
 			case GOLDEN_APPLE:
 			case ENCHANTED_GOLDEN_APPLE:

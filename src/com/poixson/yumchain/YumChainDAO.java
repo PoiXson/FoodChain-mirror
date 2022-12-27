@@ -20,7 +20,7 @@ import com.poixson.utils.Utils;
 
 public class YumChainDAO {
 	public static final double HUNGER_MULTIPLIER  = 4.0;
-	public static final long   HUNGER_SEQ_TIMEOUT = 2000L;
+	public static final long   HUNGER_SEQ_TIMEOUT = 5000L;
 
 	public final UUID uuid;
 
@@ -111,7 +111,7 @@ public class YumChainDAO {
 		final long last = this.handle_next_feed.get();
 		if (last == 0L) return;
 		this.handle_next_feed.set(0L);
-		if (Utils.GetMS() >= last + HUNGER_SEQ_TIMEOUT) {
+		if (Utils.GetMS() < last + HUNGER_SEQ_TIMEOUT) {
 			int lvl = player.getFoodLevel();
 			final int delta = event.getFoodLevel() - lvl;
 			// hunger

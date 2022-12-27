@@ -1,13 +1,10 @@
 package com.poixson.foodchain;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,8 +20,7 @@ public class FoodChainPlugin extends JavaPlugin {
 
 	// listeners
 	protected final AtomicReference<FoodChainCommands> commandListener = new AtomicReference<FoodChainCommands>(null);
-
-	protected final ConcurrentHashMap<UUID, FoodChain> chains = new ConcurrentHashMap<UUID, FoodChain>();
+	protected final AtomicReference<FoodChainHandler> foodchains = new AtomicReference<FoodChainHandler>(null);
 
 
 
@@ -41,6 +37,14 @@ public class FoodChainPlugin extends JavaPlugin {
 		{
 			final FoodChainCommands listener = new FoodChainCommands(this);
 			final FoodChainCommands previous = this.commandListener.getAndSet(listener);
+			if (previous != null)
+				previous.unregister();
+			listener.register();
+		}
+		// food chain handler
+		{
+			final FoodChainHandler listener = new FoodChainHandler(this);
+			final FoodChainHandler previous = this.foodchains.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
 			listener.register();
@@ -68,26 +72,8 @@ public class FoodChainPlugin extends JavaPlugin {
 
 
 
-	public FoodChain getFoodChain(final Player player) {
-		return this.getFoodChain(player.getUniqueId());
-	}
-	public FoodChain getFoodChain(final UUID uuid) {
-		// existing
-		{
-			final FoodChain chain = this.chains.get(uuid);
-			if (chain != null)
-				return chain;
-		}
-		// new instance
-		{
-			final FoodChain chain = new FoodChain(uuid);
-			final FoodChain existing = this.chains.putIfAbsent(uuid, chain);
-			if (existing != null) {
-				chain.unregister();
-				return existing;
-			}
-			return chain;
-		}
+	public FoodChainHandler getFoodChainHandler() {
+		return this.foodchains.get();
 	}
 
 

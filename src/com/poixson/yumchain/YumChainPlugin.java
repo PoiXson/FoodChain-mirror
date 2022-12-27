@@ -1,10 +1,12 @@
 package com.poixson.yumchain;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -74,6 +76,12 @@ public class YumChainPlugin extends JavaPlugin {
 
 	public YumChainHandler getYumChainHandler() {
 		return this.yumchains.get();
+	}
+	public YumChainDAO getYumChain(final Player player) {
+		return this.getYumChainHandler().getYumChain(player);
+	}
+	public YumChainDAO getYumChain(final UUID uuid) {
+		return this.getYumChainHandler().getYumChain(uuid);
 	}
 
 

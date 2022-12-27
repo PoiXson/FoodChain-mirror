@@ -157,16 +157,29 @@ public class YumChainDAO {
 
 
 	public String getRandomYum() {
+		for (int i=0; i<3; i++) {
+			final int rnd = NumberUtils.GetNewRandom(0, 10, this.lastrnd.get());
+			this.lastrnd.set(rnd);
+			switch (rnd) {
+			case 1: return "Yum!";
+			case 2: return "Burp";
+			case 3: return "Mmmm";
+			default: break;
+			}
+		}
 		return "Yum!";
 	}
 	public String getRandomYuck() {
-		for (int i=0; i<5; i++) {
-			final int rnd = NumberUtils.GetNewRandom(0, 5, this.lastrnd.get());
+		for (int i=0; i<3; i++) {
+			final int rnd = NumberUtils.GetNewRandom(0, 10, this.lastrnd.get());
 			this.lastrnd.set(rnd);
 			switch (rnd) {
 			case 1: return "Yuck";
 			case 2: return "Blah";
-			case 3: return "Eh..";
+			case 3: return "Ugh";
+			case 4: return "Eh..";
+			case 5: return "Ew..";
+			default: break;
 			}
 		}
 		return "Yuck";

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.poixson.utils.NumberUtils;
 
 public class YumChainDAO {
 	public static final double HUNGER_MULTIPLIER = 4.0;
@@ -22,6 +24,8 @@ public class YumChainDAO {
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
 
 	protected final AtomicBoolean handle_next_feed = new AtomicBoolean(false);
+
+	protected final AtomicInteger lastrnd = new AtomicInteger(0);
 
 
 
@@ -58,7 +62,7 @@ public class YumChainDAO {
 		this.foods.put(Material.MILK_BUCKET,     Boolean.FALSE);
 		this.foods.put(Material.HONEY_BOTTLE,    Boolean.FALSE);
 		Bukkit.getPlayer(this.uuid)
-			.sendMessage(FoodChainPlugin.CHAT_PREFIX+"Food chain reset.");
+			.sendMessage(this.getRandomYuck());
 	}
 
 
@@ -115,8 +119,8 @@ public class YumChainDAO {
 				final int total = this.getFoodsCount();
 				event.setFoodLevel(lvl + ate);
 				player.sendMessage(String.format(
-					"%sFood chain level: %d/%d",
-					FoodChainPlugin.CHAT_PREFIX,
+					"%s %d/%d",
+					this.getRandomYum(),
 					ate, total
 				));
 			}
@@ -140,6 +144,23 @@ public class YumChainDAO {
 	}
 	public int getFoodsCount() {
 		return this.foods.size();
+	}
+
+
+
+	public String getRandomYum() {
+		return "Yum!";
+	}
+	public String getRandomYuck() {
+		while (true) {
+			final int rnd = NumberUtils.GetNewRandom(0, 5, this.lastrnd.get());
+			this.lastrnd.set(rnd);
+			switch (rnd) {
+			case 1: return "Yuck";
+			case 2: return "Blah";
+			case 3: return "Eh..";
+			}
+		}
 	}
 
 

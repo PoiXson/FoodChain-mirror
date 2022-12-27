@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,15 +15,18 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.poixson.utils.NumberUtils;
+import com.poixson.utils.Utils;
+
 
 public class YumChainDAO {
-	public static final double HUNGER_MULTIPLIER = 4.0;
+	public static final double HUNGER_MULTIPLIER  = 4.0;
+	public static final long   HUNGER_SEQ_TIMEOUT = 2000L;
 
 	public final UUID uuid;
 
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
 
-	protected final AtomicBoolean handle_next_feed = new AtomicBoolean(false);
+	protected final AtomicLong handle_next_feed = new AtomicLong(0L);
 
 	protected final AtomicInteger lastrnd = new AtomicInteger(0);
 
@@ -78,11 +81,11 @@ public class YumChainDAO {
 			case ENCHANTED_GOLDEN_APPLE:
 			case GLISTERING_MELON_SLICE:
 			case GOLDEN_CARROT:
-				this.handle_next_feed.set(false);
+				this.handle_next_feed.set(0L);
 				return;
 			default: break;
 			}
-			this.handle_next_feed.set(true);
+			this.handle_next_feed.set(Utils.GetMS());
 			return;
 		}
 		// already ate
@@ -105,7 +108,10 @@ public class YumChainDAO {
 	}
 
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
-		if (this.handle_next_feed.get()) {
+		final long last = this.handle_next_feed.get();
+		if (last == 0L) return;
+		this.handle_next_feed.set(0L);
+		if (Utils.GetMS() >= last + HUNGER_SEQ_TIMEOUT) {
 			int lvl = player.getFoodLevel();
 			final int delta = event.getFoodLevel() - lvl;
 			// hunger

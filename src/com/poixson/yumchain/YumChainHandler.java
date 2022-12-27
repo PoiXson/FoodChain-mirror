@@ -11,6 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 
@@ -53,6 +54,14 @@ public class YumChainHandler implements Listener {
 			final YumChainDAO chain = this.getYumChain(player);
 			if (chain == null) throw new NullPointerException("Unable to get yum chain dao");
 			chain.hunger(event, player);
+		}
+	}
+
+	@EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
+	public void onPlayerDeath(final PlayerDeathEvent event) {
+		if (!event.getKeepLevel()) {
+			this.getYumChain(event.getEntity())
+				.reset(false);
 		}
 	}
 

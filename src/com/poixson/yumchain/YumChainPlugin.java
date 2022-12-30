@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ public class YumChainPlugin extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
+	protected static final AtomicReference<Metrics>        metrics  = new AtomicReference<Metrics>(null);
 
 	// listeners
 	protected final AtomicReference<YumChainCommands> commandListener = new AtomicReference<YumChainCommands>(null);
@@ -51,6 +53,9 @@ public class YumChainPlugin extends JavaPlugin {
 				previous.unregister();
 			listener.register();
 		}
+		// bStats
+		System.setProperty("bstats.relocatecheck","false");
+		metrics.set(new Metrics(this, 17233));
 	}
 
 	@Override

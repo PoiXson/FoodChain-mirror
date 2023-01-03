@@ -1,63 +1,42 @@
-package com.poixson.yumchain.listeners;
+package com.poixson.yumchain.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.entity.Player;
 
-import com.poixson.yumchain.YumChainDAO;
+import com.poixson.commonbukkit.tools.commands.pxnCommandsHandler;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class YumChainCommands implements CommandExecutor {
-	public static final String CHAT_PREFIX = YumChainPlugin.CHAT_PREFIX;
-
-	protected final YumChainPlugin plugin;
-
-	protected final ArrayList<PluginCommand> cmds = new ArrayList<PluginCommand>();
+public class YumChainCommands extends pxnCommandsHandler {
 
 
 
 	public YumChainCommands(final YumChainPlugin plugin) {
-		this.plugin = plugin;
-	}
-
-
-
-	public void register() {
-		final PluginCommand cmd = this.plugin.getCommand("yumchain");
-		cmd.setExecutor(this);
-		this.cmds.add(cmd);
-		cmd.setTabCompleter( new YumChainTabCompleter() );
-	}
-	public void unregister() {
-		for (final PluginCommand cmd : this.cmds) {
-			cmd.setExecutor(null);
-		}
-		this.cmds.clear();
+		super(
+			plugin,
+			"yum",
+			"yumchain"
+		);
 	}
 
 
 
 	@Override
-	public boolean onCommand(final CommandSender sender, final Command cmd,
+	public List<String> onTabComplete(
+			final CommandSender sender, final Command cmd,
 			final String label, final String[] args) {
-		final Player player = (sender instanceof Player ? (Player)sender : null);
-		final int numargs = args.length;
-		if (numargs >= 1) {
-			switch (args[0]) {
-			case "reset": {
-				final YumChainDAO chain = this.plugin.getYumChain(player);
-				chain.reset(true);
-				return true;
-			}
-			default: break;
-			}
+		final List<String> matches = new ArrayList<String>();
+		final int size = args.length;
+		switch (size) {
+		case 1:
+			if ("reset".startsWith(args[0])) matches.add("reset");
+			break;
+		default:
 		}
-		return false;
+		return matches;
 	}
 
 

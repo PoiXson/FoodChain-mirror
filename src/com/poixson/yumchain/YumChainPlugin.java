@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.poixson.yumchain.listeners.YumChainCommands;
+import com.poixson.yumchain.commands.YumChainCommands;
 
 
 public class YumChainPlugin extends JavaPlugin {

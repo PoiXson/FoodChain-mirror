@@ -20,6 +20,7 @@ public class YumChainCommands extends pxnCommandsHandler {
 			"yum",
 			"yumchain"
 		);
+		this.addCommand(new CommandReset(plugin));
 	}
 
 

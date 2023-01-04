@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,8 +27,6 @@ public class YumChainDAO {
 	public final UUID uuid;
 
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
-
-	protected final AtomicLong handle_next_feed = new AtomicLong(0L);
 
 	protected final AtomicInteger lastrnd = new AtomicInteger(0);
 	protected final AtomicBoolean quietyum = new AtomicBoolean(false);
@@ -73,14 +70,11 @@ public class YumChainDAO {
 			case ENCHANTED_GOLDEN_APPLE:
 			case GLISTERING_MELON_SLICE:
 			case GOLDEN_CARROT:
-				this.handle_next_feed.set(0L);
 				return;
 			default: break;
 			}
-			this.handle_next_feed.set(Utils.GetMS());
 			return;
 		}
-		this.handle_next_feed.set(Utils.GetMS());
 		// already ate
 		if (ate.booleanValue()) {
 			this.reset(true);
@@ -90,10 +84,6 @@ public class YumChainDAO {
 	}
 
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
-		final long last = this.handle_next_feed.get();
-		if (last == 0L) return;
-		this.handle_next_feed.set(0L);
-		if (Utils.GetMS() < last + HUNGER_SEQ_TIMEOUT) {
 			int lvl = player.getFoodLevel();
 			final int delta = event.getFoodLevel() - lvl;
 			// hunger

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated: Thu Dec 29 09:15:41 PM EST 2022 -->
+<!-- Generated: Tue Jan  3 04:18:56 AM EST 2023 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<name>pxnYumChain</name>
+	<name>YumChain</name>
 	<artifactId>yumchain</artifactId>
 	<groupId>com.poixson</groupId>
 	<version>0.1.1-SNAPSHOT</version>
@@ -38,13 +38,13 @@
 
 	</properties>
 	<scm>
-		<url>https://git.poixson.com/summary/mc!pxnYumChain.git</url>
-		<connection>scm:git:https://git.poixson.com/r/mc/pxnYumChain.git</connection>
-		<developerConnection>scm:ssh://git.poixson.com/mc/pxnYumChain.git</developerConnection>
+		<url>https://git.poixson.com/summary/mc!YumChain.git</url>
+		<connection>scm:git:https://git.poixson.com/r/mc/YumChain.git</connection>
+		<developerConnection>scm:ssh://git.poixson.com/mc/YumChain.git</developerConnection>
 	</scm>
 	<issueManagement>
 		<system>pxngit</system>
-		<url>https://git.poixson.com/tickets/mc!pxnYumChain.git</url>
+		<url>https://git.poixson.com/tickets/mc!YumChain.git</url>
 	</issueManagement>
 	<ciManagement>
 		<system>pxnJenkins</system>

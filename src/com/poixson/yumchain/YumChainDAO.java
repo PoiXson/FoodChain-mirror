@@ -86,9 +86,9 @@ public class YumChainDAO {
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
 			int lvl = player.getFoodLevel();
 			final int delta = event.getFoodLevel() - lvl;
+			final double percent = this.getChainPercent();
 			// hunger
 			if (delta < 0) {
-				final double percent = this.getChainPercent();
 				final double hunger = ((double)delta) * (1.0 - percent) * HUNGER_MULTIPLIER;
 				event.setFoodLevel(lvl + (int)Math.ceil(hunger));
 				// feed
@@ -105,6 +105,10 @@ public class YumChainDAO {
 						ate, total,
 						this.getRandomYum()
 					));
+					if (percent >= 1.0) {
+						player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
+						YumChainPlugin.log.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
+					}
 				}
 			}
 		}

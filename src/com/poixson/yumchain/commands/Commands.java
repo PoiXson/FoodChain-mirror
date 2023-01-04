@@ -10,11 +10,11 @@ import com.poixson.commonbukkit.tools.commands.pxnCommandsHandler;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class YumChainCommands extends pxnCommandsHandler {
+public class Commands extends pxnCommandsHandler {
 
 
 
-	public YumChainCommands(final YumChainPlugin plugin) {
+	public Commands(final YumChainPlugin plugin) {
 		super(
 			plugin,
 			"yum",

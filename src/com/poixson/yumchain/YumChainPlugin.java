@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.poixson.yumchain.commands.YumChainCommands;
+import com.poixson.yumchain.commands.Commands;
 
 
 public class YumChainPlugin extends JavaPlugin {
@@ -23,7 +23,7 @@ public class YumChainPlugin extends JavaPlugin {
 	protected static final AtomicReference<Metrics>        metrics  = new AtomicReference<Metrics>(null);
 
 	// listeners
-	protected final AtomicReference<YumChainCommands> commandListener = new AtomicReference<YumChainCommands>(null);
+	protected final AtomicReference<Commands>  commandListener = new AtomicReference<Commands>(null);
 	protected final AtomicReference<YumChainHandler> yumchains = new AtomicReference<YumChainHandler>(null);
 
 
@@ -39,8 +39,8 @@ public class YumChainPlugin extends JavaPlugin {
 			throw new RuntimeException("Plugin instance already enabled?");
 		// commands listener
 		{
-			final YumChainCommands listener = new YumChainCommands(this);
-			final YumChainCommands previous = this.commandListener.getAndSet(listener);
+			final Commands listener = new Commands(this);
+			final Commands previous = this.commandListener.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
 			listener.register();
@@ -62,7 +62,7 @@ public class YumChainPlugin extends JavaPlugin {
 	public void onDisable() {
 		// commands listener
 		{
-			final YumChainCommands listener = this.commandListener.getAndSet(null);
+			final Commands listener = this.commandListener.getAndSet(null);
 			if (listener != null)
 				listener.unregister();
 		}

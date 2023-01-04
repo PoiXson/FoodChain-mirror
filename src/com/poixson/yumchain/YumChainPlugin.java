@@ -21,7 +21,7 @@ import com.poixson.yumchain.commands.Commands;
 
 public class YumChainPlugin extends JavaPlugin {
 	public static final String LOG_PREFIX  = "[YUM] ";
-	public static final String CHAT_PREFIX = ChatColor.AQUA + "[YUM] " + ChatColor.WHITE;
+	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 	public static final Logger log = Logger.getLogger("Minecraft");
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);

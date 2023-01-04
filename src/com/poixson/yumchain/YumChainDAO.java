@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.poixson.utils.NumberUtils;
-import com.poixson.utils.Utils;
 
 
 public class YumChainDAO {
@@ -62,7 +61,7 @@ public class YumChainDAO {
 		final ItemStack item = event.getItem();
 		final Material type = item.getType();
 		Boolean ate = this.foods.get(type);
-		// food not in list
+		// bypass
 		if (ate == null) {
 			this.quietyum.set(true);
 			switch (type) {
@@ -84,31 +83,30 @@ public class YumChainDAO {
 	}
 
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
-			int lvl = player.getFoodLevel();
-			final int delta = event.getFoodLevel() - lvl;
-			final double percent = this.getChainPercent();
-			// hunger
-			if (delta < 0) {
-				final double hunger = ((double)delta) * (1.0 - percent) * HUNGER_MULTIPLIER;
-				event.setFoodLevel(lvl + (int)Math.ceil(hunger));
-				// feed
+		int lvl = player.getFoodLevel();
+		final int delta = event.getFoodLevel() - lvl;
+		final double percent = this.getChainPercent();
+		// hunger
+		if (delta < 0) {
+			final double hunger = ((double)delta) * (1.0 - percent) * HUNGER_MULTIPLIER;
+			event.setFoodLevel(lvl + (int)Math.ceil(hunger));
+		// feed
+		} else {
+			final int ate   = this.getChainAte();
+			final int total = this.getFoodsCount();
+			event.setFoodLevel(lvl + ate);
+			if (this.quietyum.get()) {
+				this.quietyum.set(false);
 			} else {
-				final int ate   = this.getChainAte();
-				final int total = this.getFoodsCount();
-				event.setFoodLevel(lvl + ate);
-				if (this.quietyum.get()) {
-					this.quietyum.set(false);
-				} else {
-					player.sendMessage(String.format(
-						"%s [%d/%d] %s",
-						ChatColor.AQUA,
-						ate, total,
-						this.getRandomYum()
-					));
-					if (percent >= 1.0) {
-						player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
-						YumChainPlugin.log.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
-					}
+				player.sendMessage(String.format(
+					"%s [%d/%d] %s",
+					ChatColor.AQUA,
+					ate, total,
+					this.getRandomYum()
+				));
+				if (percent >= 1.0) {
+					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
+					YumChainPlugin.log.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
 				}
 			}
 		}

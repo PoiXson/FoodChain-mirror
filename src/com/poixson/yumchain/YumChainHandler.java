@@ -79,7 +79,7 @@ public class YumChainHandler implements Listener {
 		}
 		// new instance
 		{
-			final YumChainDAO chain = new YumChainDAO(uuid);
+			final YumChainDAO chain = new YumChainDAO(this.plugin, uuid);
 			final YumChainDAO existing = this.chains.putIfAbsent(uuid, chain);
 			return (existing==null ? chain : existing);
 		}

@@ -23,6 +23,8 @@ public class YumChainDAO {
 	public static final double HUNGER_MULTIPLIER  = 4.0;
 	public static final long   HUNGER_SEQ_TIMEOUT = 5000L;
 
+	protected final YumChainPlugin plugin;
+
 	public final UUID uuid;
 
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
@@ -34,7 +36,8 @@ public class YumChainDAO {
 
 
 
-	public YumChainDAO(final UUID uuid) {
+	public YumChainDAO(final YumChainPlugin plugin, final UUID uuid) {
+		this.plugin = plugin;
 		this.uuid = uuid;
 		this.reset(false);
 	}
@@ -46,29 +49,10 @@ public class YumChainDAO {
 	}
 	public void reset(final boolean sendmsg) {
 		this.foods.clear();
-		this.foods.put(Material.APPLE,           Boolean.FALSE);
-		this.foods.put(Material.MELON_SLICE,     Boolean.FALSE);
-		this.foods.put(Material.SWEET_BERRIES,   Boolean.FALSE);
-		this.foods.put(Material.GLOW_BERRIES,    Boolean.FALSE);
-		this.foods.put(Material.CARROT,          Boolean.FALSE);
-		this.foods.put(Material.BAKED_POTATO,    Boolean.FALSE);
-		this.foods.put(Material.BEETROOT,        Boolean.FALSE);
-		this.foods.put(Material.DRIED_KELP,      Boolean.FALSE);
-		this.foods.put(Material.COOKED_BEEF,     Boolean.FALSE);
-		this.foods.put(Material.COOKED_PORKCHOP, Boolean.FALSE);
-		this.foods.put(Material.COOKED_MUTTON,   Boolean.FALSE);
-		this.foods.put(Material.COOKED_CHICKEN,  Boolean.FALSE);
-		this.foods.put(Material.COOKED_RABBIT,   Boolean.FALSE);
-		this.foods.put(Material.COOKED_COD,      Boolean.FALSE);
-		this.foods.put(Material.COOKED_SALMON,   Boolean.FALSE);
-		this.foods.put(Material.BREAD,           Boolean.FALSE);
-		this.foods.put(Material.COOKIE,          Boolean.FALSE);
-		this.foods.put(Material.PUMPKIN_PIE,     Boolean.FALSE);
-		this.foods.put(Material.MUSHROOM_STEW,   Boolean.FALSE);
-		this.foods.put(Material.BEETROOT_SOUP,   Boolean.FALSE);
-		this.foods.put(Material.RABBIT_STEW,     Boolean.FALSE);
-		this.foods.put(Material.MILK_BUCKET,     Boolean.FALSE);
-		this.foods.put(Material.HONEY_BOTTLE,    Boolean.FALSE);
+		final Material[] foods = this.plugin.getChainFoodsMat();
+		for (final Material food : foods) {
+			this.foods.put(food, Boolean.FALSE);
+		}
 		if (sendmsg) {
 			Bukkit.getPlayer(this.uuid)
 				.sendMessage(ChatColor.AQUA+this.getRandomYuck());

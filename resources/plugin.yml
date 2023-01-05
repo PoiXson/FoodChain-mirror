@@ -20,6 +20,9 @@ permissions:
         description: Gives access to all yum chain commands
         children:
             yumchain.reset: true
+    yumchain.list:
+        default: true
+        description: List the foods you're hungry for.
     yumchain.reset:
         default: op
         description: Reset a players yum chain

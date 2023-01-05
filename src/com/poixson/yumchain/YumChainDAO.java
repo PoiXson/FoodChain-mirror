@@ -19,7 +19,6 @@ import com.poixson.utils.NumberUtils;
 
 public class YumChainDAO {
 	public static final double HUNGER_MULTIPLIER  = 4.0;
-	public static final long   HUNGER_SEQ_TIMEOUT = 5000L;
 
 	protected final YumChainPlugin plugin;
 

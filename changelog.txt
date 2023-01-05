@@ -1,6 +1,14 @@
 YumChain - Eat a variety of foods for a bonus
 
 
+2023-01-04 - 0.1.2
+==================
+* added config.yml
+* added /yum list command (with alias of just /yum)
+* added message when food chain is full
+* fixed food chain bonus and hunger reduction
+
+
 2022-12-27 - 0.1.1
 ==================
 * initial release

@@ -17,7 +17,7 @@ permission-message: "You don't have permission to use this command."
 permissions:
     yumchain.*:
         default: op
-        description: Gives access to all yum chain commands
+        description: Gives access to all yum chain commands.
         children:
             yumchain.reset: true
     yumchain.list:
@@ -25,4 +25,4 @@ permissions:
         description: List the foods you're hungry for.
     yumchain.reset:
         default: op
-        description: Reset a players yum chain
+        description: Reset a players yum chain.

@@ -152,6 +152,7 @@ public class YumChainPlugin extends JavaPlugin {
 
 
 
+	@Override
 	public String[] getChainFoodsStr() {
 		final List<String> foods = this.config.get().getStringList("Foods");
 		return foods.toArray(new String[0]);
@@ -186,10 +187,12 @@ public class YumChainPlugin extends JavaPlugin {
 			super.saveConfig();
 		}
 	}
+	@Override
 	protected void saveConfigs() {
 		// config.yml
 		super.saveConfig();
 	}
+	@Override
 	protected void configDefaults(final FileConfiguration cfg) {
 		cfg.addDefault("Foods", DEFAULT_CHAIN_FOODS);
 	}

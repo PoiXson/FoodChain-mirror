@@ -100,7 +100,8 @@ public class YumChainDAO {
 				player.sendMessage(String.format(
 					"%s [%d/%d] %s",
 					ChatColor.AQUA,
-					ate, total,
+					Integer.valueOf(ate),
+					Integer.valueOf(total),
 					this.getRandomYum()
 				));
 				if (percent >= 1.0) {

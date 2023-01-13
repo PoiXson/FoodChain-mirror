@@ -1,15 +1,11 @@
 package com.poixson.yumchain;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -19,11 +15,9 @@ import com.poixson.yumchain.commands.Commands;
 
 
 public class YumChainPlugin extends xJavaPlugin {
-	public static final String LOG_PREFIX  = "[YUM] ";
-	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
-	public static final Logger log = Logger.getLogger("Minecraft");
-	public static final int SPIGOT_PLUGIN_ID = 107050;
-	public static final int BSTATS_PLUGIN_ID = 17233;
+	protected static final String LOG_PREFIX  = "[YUM] ";
+	protected static final int SPIGOT_PLUGIN_ID = 107050;
+	protected static final int BSTATS_PLUGIN_ID = 17233;
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
 
@@ -99,8 +93,13 @@ public class YumChainPlugin extends xJavaPlugin {
 				listener.unregister();
 		}
 		if (!instance.compareAndSet(this, null))
-			throw new RuntimeException("Disable wrong instance of plugin?");
+			(new RuntimeException("Disable wrong instance of plugin?")).printStackTrace();
 	}
+
+
+
+	// -------------------------------------------------------------------------------
+	// yum chain handdler
 
 
 
@@ -122,21 +121,6 @@ public class YumChainPlugin extends xJavaPlugin {
 
 
 	@Override
-	public String[] getChainFoodsStr() {
-		final List<String> foods = this.config.get().getStringList("Foods");
-		return foods.toArray(new String[0]);
-	}
-	public Material[] getChainFoodsMat() {
-		final LinkedList<Material> list = new LinkedList<Material>();
-		final String[] foods = this.getChainFoodsStr();
-		for (final String food : foods) {
-			list.add(Material.getMaterial(food));
-		}
-		return list.toArray(new Material[0]);
-	}
-
-
-
 	protected void loadConfigs() {
 		// plugin dir
 		{
@@ -164,6 +148,21 @@ public class YumChainPlugin extends xJavaPlugin {
 	@Override
 	protected void configDefaults(final FileConfiguration cfg) {
 		cfg.addDefault("Foods", DEFAULT_CHAIN_FOODS);
+	}
+
+
+
+	public String[] getChainFoodsStr() {
+		final List<String> foods = this.config.get().getStringList("Foods");
+		return foods.toArray(new String[0]);
+	}
+	public Material[] getChainFoodsMat() {
+		final LinkedList<Material> list = new LinkedList<Material>();
+		final String[] foods = this.getChainFoodsStr();
+		for (final String food : foods) {
+			list.add(Material.getMaterial(food));
+		}
+		return list.toArray(new Material[0]);
 	}
 
 

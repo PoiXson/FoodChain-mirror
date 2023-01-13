@@ -1,6 +1,7 @@
 package com.poixson.yumchain;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -66,6 +67,7 @@ public class YumChainPlugin extends JavaPlugin {
 
 
 	public YumChainPlugin() {
+		super();
 		try {
 			this.props = AppProps.LoadFromClassRef(YumChainPlugin.class);
 		} catch (IOException e) {
@@ -108,6 +110,10 @@ public class YumChainPlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		// update checker
+		pxnCommonPlugin.GetPlugin()
+			.getUpdateCheckManager()
+				.removePlugin(SPIGOT_PLUGIN_ID);
 		// commands listener
 		{
 			final Commands listener = this.commandListener.getAndSet(null);

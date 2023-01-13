@@ -24,6 +24,7 @@ public class YumChainPlugin extends JavaPlugin {
 	public static final String LOG_PREFIX  = "[YUM] ";
 	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 	public static final Logger log = Logger.getLogger("Minecraft");
+	public static final int BSTATS_PLUGIN_ID = 17233;
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
 	protected static final AtomicReference<Metrics>        metrics  = new AtomicReference<Metrics>(null);
@@ -96,7 +97,7 @@ public class YumChainPlugin extends JavaPlugin {
 		}
 		// bStats
 		System.setProperty("bstats.relocatecheck","false");
-		metrics.set(new Metrics(this, 17233));
+		metrics.set(new Metrics(this, BSTATS_PLUGIN_ID));
 	}
 
 	@Override

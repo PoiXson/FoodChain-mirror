@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.poixson.commonbukkit.pxnCommonPlugin;
 import com.poixson.tools.AppProps;
 import com.poixson.yumchain.commands.Commands;
 
@@ -24,6 +25,7 @@ public class YumChainPlugin extends JavaPlugin {
 	public static final String LOG_PREFIX  = "[YUM] ";
 	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 	public static final Logger log = Logger.getLogger("Minecraft");
+	public static final int SPIGOT_PLUGIN_ID = 107050;
 	public static final int BSTATS_PLUGIN_ID = 17233;
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
@@ -98,6 +100,10 @@ public class YumChainPlugin extends JavaPlugin {
 		// bStats
 		System.setProperty("bstats.relocatecheck","false");
 		metrics.set(new Metrics(this, BSTATS_PLUGIN_ID));
+		// update checker
+		pxnCommonPlugin.GetPlugin()
+			.getUpdateCheckManager()
+				.addPlugin(this, SPIGOT_PLUGIN_ID, this.getPluginVersion());
 	}
 
 	@Override
@@ -180,6 +186,12 @@ public class YumChainPlugin extends JavaPlugin {
 	}
 	protected void configDefaults(final FileConfiguration cfg) {
 		cfg.addDefault("Foods", DEFAULT_CHAIN_FOODS);
+	}
+
+
+
+	public String getPluginVersion() {
+		return this.props.version;
 	}
 
 

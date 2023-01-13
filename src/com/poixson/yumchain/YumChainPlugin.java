@@ -22,10 +22,9 @@ public class YumChainPlugin extends xJavaPlugin {
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
 
 	// listeners
-	protected final AtomicReference<Commands>  commandListener = new AtomicReference<Commands>(null);
-	protected final AtomicReference<YumChainHandler> yumchains = new AtomicReference<YumChainHandler>(null);
+	protected final AtomicReference<Commands>     commandListener = new AtomicReference<Commands>(null);
+	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);
 
-	protected final AtomicReference<FileConfiguration> config = new AtomicReference<FileConfiguration>(null);
 	protected static final String[] DEFAULT_CHAIN_FOODS = new String[] {
 		"APPLE",
 		"MELON_SLICE",
@@ -76,7 +75,7 @@ public class YumChainPlugin extends xJavaPlugin {
 		// yum chain handler
 		{
 			final YumChainHandler listener = new YumChainHandler(this);
-			final YumChainHandler previous = this.yumchains.getAndSet(listener);
+			final YumChainHandler previous = this.chainHandler.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
 			listener.register();
@@ -92,6 +91,12 @@ public class YumChainPlugin extends xJavaPlugin {
 			if (listener != null)
 				listener.unregister();
 		}
+		// yum chain listener
+		{
+			final YumChainHandler listener = this.chainHandler.getAndSet(null);
+			if (listener != null)
+				listener.unregister();
+		}
 		if (!instance.compareAndSet(this, null))
 			(new RuntimeException("Disable wrong instance of plugin?")).printStackTrace();
 	}
@@ -104,7 +109,7 @@ public class YumChainPlugin extends xJavaPlugin {
 
 
 	public YumChainHandler getYumChainHandler() {
-		return this.yumchains.get();
+		return this.chainHandler.get();
 	}
 	public YumChainDAO getYumChain(final Player player) {
 		return this.getYumChainHandler().getYumChain(player);

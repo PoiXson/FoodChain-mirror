@@ -8,21 +8,17 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import com.poixson.commonmc.pxnCommonPlugin;
-import com.poixson.tools.AppProps;
+import com.poixson.commonmc.tools.plugin.xJavaPlugin;
 import com.poixson.yumchain.commands.Commands;
 
 
-public class YumChainPlugin extends JavaPlugin {
+public class YumChainPlugin extends xJavaPlugin {
 	public static final String LOG_PREFIX  = "[YUM] ";
 	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 	public static final Logger log = Logger.getLogger("Minecraft");
@@ -30,8 +26,6 @@ public class YumChainPlugin extends JavaPlugin {
 	public static final int BSTATS_PLUGIN_ID = 17233;
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
-	protected static final AtomicReference<Metrics>        metrics  = new AtomicReference<Metrics>(null);
-	protected final AppProps props;
 
 	// listeners
 	protected final AtomicReference<Commands>  commandListener = new AtomicReference<Commands>(null);
@@ -67,22 +61,16 @@ public class YumChainPlugin extends JavaPlugin {
 
 
 	public YumChainPlugin() {
-		super();
-		try {
-			this.props = AppProps.LoadFromClassRef(YumChainPlugin.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		super(YumChainPlugin.class);
 	}
 
 
 
 	@Override
 	public void onEnable() {
+		super.onEnable();
 		if (!instance.compareAndSet(null, this))
 			throw new RuntimeException("Plugin instance already enabled?");
-		// load configs
-		this.loadConfigs();
 		// commands listener
 		{
 			final Commands listener = new Commands(this);
@@ -99,36 +87,17 @@ public class YumChainPlugin extends JavaPlugin {
 				previous.unregister();
 			listener.register();
 		}
-		// bStats
-		System.setProperty("bstats.relocatecheck","false");
-		metrics.set(new Metrics(this, BSTATS_PLUGIN_ID));
-		// update checker
-		pxnCommonPlugin.GetPlugin()
-			.getUpdateCheckManager()
-				.addPlugin(this, SPIGOT_PLUGIN_ID, this.getPluginVersion());
 	}
 
 	@Override
 	public void onDisable() {
-		// update checker
-		pxnCommonPlugin.GetPlugin()
-			.getUpdateCheckManager()
-				.removePlugin(SPIGOT_PLUGIN_ID);
+		super.onDisable();
 		// commands listener
 		{
 			final Commands listener = this.commandListener.getAndSet(null);
 			if (listener != null)
 				listener.unregister();
 		}
-		// stop schedulers
-		try {
-			Bukkit.getScheduler()
-				.cancelTasks(this);
-		} catch (Exception ignore) {}
-		// stop listeners
-		HandlerList.unregisterAll(this);
-		// save configs
-		this.saveConfigs();
 		if (!instance.compareAndSet(this, null))
 			throw new RuntimeException("Disable wrong instance of plugin?");
 	}
@@ -199,8 +168,17 @@ public class YumChainPlugin extends JavaPlugin {
 
 
 
-	public String getPluginVersion() {
-		return this.props.version;
+	// -------------------------------------------------------------------------------
+
+
+
+	@Override
+	protected int getSpigotPluginID() {
+		return SPIGOT_PLUGIN_ID;
+	}
+	@Override
+	protected int getBStatsID() {
+		return BSTATS_PLUGIN_ID;
 	}
 
 

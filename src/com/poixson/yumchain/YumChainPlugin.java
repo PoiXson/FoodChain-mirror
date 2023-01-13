@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.poixson.tools.AppProps;
 import com.poixson.yumchain.commands.Commands;
 
 
@@ -26,6 +27,7 @@ public class YumChainPlugin extends JavaPlugin {
 
 	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
 	protected static final AtomicReference<Metrics>        metrics  = new AtomicReference<Metrics>(null);
+	protected final AppProps props;
 
 	// listeners
 	protected final AtomicReference<Commands>  commandListener = new AtomicReference<Commands>(null);
@@ -61,6 +63,11 @@ public class YumChainPlugin extends JavaPlugin {
 
 
 	public YumChainPlugin() {
+		try {
+			this.props = AppProps.LoadFromClassRef(YumChainPlugin.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 

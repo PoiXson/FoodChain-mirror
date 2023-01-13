@@ -2,7 +2,7 @@ name: ${project.name}
 main: com.poixson.yumchain.YumChainPlugin
 version: ${project.version}
 api-version: ${spigot-short-version}
-depend: [ pxnCommonBukkit ]
+depend: [ pxnCommonPluginMC ]
 authors: [ lorenzop ]
 website: ${project.url}
 description: ${project.description}

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -79,6 +80,13 @@ public class YumChainPlugin extends xJavaPlugin {
 			if (previous != null)
 				previous.unregister();
 			listener.register();
+		}
+		// custom stats
+		{
+			final Metrics metrics = this.metrics.get();
+			if (metrics != null) {
+				metrics.addCustomChart(YumChainFullChart.GetChart(this));
+			}
 		}
 	}
 

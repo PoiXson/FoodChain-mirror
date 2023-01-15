@@ -1,5 +1,7 @@
 package com.poixson.yumchain;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -83,6 +85,18 @@ public class YumChainHandler implements Listener {
 			final YumChainDAO existing = this.chains.putIfAbsent(uuid, chain);
 			return (existing==null ? chain : existing);
 		}
+	}
+
+
+
+	public HashMap<UUID, Double> getChainPercents() {
+		final HashMap<UUID, Double> percents = new HashMap<UUID, Double>();
+		final Iterator<YumChainDAO> it = this.chains.values().iterator();
+		while (it.hasNext()) {
+			final YumChainDAO dao = it.next();
+			percents.put(dao.uuid, Double.valueOf(dao.getChainPercent()));
+		}
+		return percents;
 	}
 
 

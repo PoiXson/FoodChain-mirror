@@ -26,6 +26,8 @@ public class YumChainPlugin extends xJavaPlugin {
 	protected final AtomicReference<Commands>     commandListener = new AtomicReference<Commands>(null);
 	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);
 
+	protected final AtomicReference<Material[]> cacheChainFoods  = new AtomicReference<Material[]>(null);
+
 	protected static final String[] DEFAULT_CHAIN_FOODS = new String[] {
 		"APPLE",
 		"MELON_SLICE",
@@ -107,6 +109,8 @@ public class YumChainPlugin extends xJavaPlugin {
 		}
 		if (!instance.compareAndSet(this, null))
 			(new RuntimeException("Disable wrong instance of plugin?")).printStackTrace();
+		// clear config caches
+		this.cacheChainFoods.set(null);
 	}
 
 
@@ -170,12 +174,23 @@ public class YumChainPlugin extends xJavaPlugin {
 		return foods.toArray(new String[0]);
 	}
 	public Material[] getChainFoodsMat() {
-		final LinkedList<Material> list = new LinkedList<Material>();
-		final String[] foods = this.getChainFoodsStr();
-		for (final String food : foods) {
-			list.add(Material.getMaterial(food));
+		// cached
+		{
+			final Material[] foods = this.cacheChainFoods.get();
+			if (foods != null)
+				return foods;
 		}
-		return list.toArray(new Material[0]);
+		// get chain foods
+		{
+			final LinkedList<Material> list = new LinkedList<Material>();
+			final String[] foodStrs = this.getChainFoodsStr();
+			for (final String food : foodStrs) {
+				list.add(Material.getMaterial(food));
+			}
+			final Material[] foods = list.toArray(new Material[0]);
+			this.cacheChainFoods.set(foods);
+			return foods;
+		}
 	}
 
 

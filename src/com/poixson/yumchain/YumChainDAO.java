@@ -26,8 +26,11 @@ public class YumChainDAO {
 
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
 
-	protected final AtomicInteger lastrnd = new AtomicInteger(0);
+	protected final AtomicInteger lastrnd_yum  = new AtomicInteger(0);
+	protected final AtomicInteger lastrnd_yuck = new AtomicInteger(0);
+
 	protected final AtomicBoolean quietyum = new AtomicBoolean(false);
+	protected final AtomicBoolean bypass   = new AtomicBoolean(false);
 
 
 
@@ -63,15 +66,10 @@ public class YumChainDAO {
 		// bypass
 		if (ate == null) {
 			this.quietyum.set(true);
-			switch (type) {
-			case GOLDEN_APPLE:
-			case ENCHANTED_GOLDEN_APPLE:
-			case GLISTERING_MELON_SLICE:
-			case GOLDEN_CARROT:
+			if (this.plugin.isBypassFood(type)) {
+				this.bypass.set(true);
 				return;
-			default: break;
 			}
-			return;
 		}
 		// already ate
 		if (ate.booleanValue()) {
@@ -82,6 +80,8 @@ public class YumChainDAO {
 	}
 
 	public void hunger(final FoodLevelChangeEvent event, final Player player) {
+		if (this.bypass.getAndSet(false))
+			return;
 		int lvl = player.getFoodLevel();
 		final int delta = event.getFoodLevel() - lvl;
 		final double percent = this.getChainPercent();
@@ -94,9 +94,7 @@ public class YumChainDAO {
 			final int ate   = this.getChainAte();
 			final int total = this.getFoodsCount();
 			event.setFoodLevel(lvl + ate);
-			if (this.quietyum.get()) {
-				this.quietyum.set(false);
-			} else {
+			if (!this.quietyum.getAndSet(false)) {
 				player.sendMessage(String.format(
 					"%s [%d/%d] %s",
 					ChatColor.AQUA,
@@ -134,32 +132,16 @@ public class YumChainDAO {
 
 
 	public String getRandomYum() {
-		for (int i=0; i<3; i++) {
-			final int rnd = NumberUtils.GetNewRandom(0, 10, this.lastrnd.get());
-			this.lastrnd.set(rnd);
-			switch (rnd) {
-			case 1: return "Yum!";
-			case 2: return "Burp";
-			case 3: return "Mmmm";
-			default: break;
-			}
-		}
-		return "Yum!";
+		final String[] msgs = this.plugin.getYumMessages();
+		final int rnd = NumberUtils.GetNewRandom(0, msgs.length-1, this.lastrnd_yum.get());
+		this.lastrnd_yum.set(rnd);
+		return msgs[rnd];
 	}
 	public String getRandomYuck() {
-		for (int i=0; i<3; i++) {
-			final int rnd = NumberUtils.GetNewRandom(0, 10, this.lastrnd.get());
-			this.lastrnd.set(rnd);
-			switch (rnd) {
-			case 1: return "Yuck";
-			case 2: return "Blah";
-			case 3: return "Ugh";
-			case 4: return "Eh..";
-			case 5: return "Ew..";
-			default: break;
-			}
-		}
-		return "Yuck";
+		final String[] msgs = this.plugin.getYuckMessages();
+		final int rnd = NumberUtils.GetNewRandom(0, msgs.length-1, this.lastrnd_yuck.get());
+		this.lastrnd_yuck.set(rnd);
+		return msgs[rnd];
 	}
 
 

@@ -1,6 +1,15 @@
 YumChain - Eat a variety of foods for a bonus
 
 
+2023-01-16 - 0.1.4
+==================
+* added plugin update checker - provided by pxnCommonPluginMC
+* using new xJavaPlugin to simplify boiler plate code
+* fixed/removed old hunger timeout - didn't work as intended
+* renamed pxnCommonPluginMC dependency
+* added config options for bypass foods, and yum/yuck messages
+
+
 2023-01-04 - 0.1.2
 ==================
 * added config.yml

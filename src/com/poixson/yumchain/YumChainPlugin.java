@@ -70,7 +70,8 @@ public class YumChainPlugin extends xJavaPlugin {
 	protected static final String[] DEFAULT_MESSAGES_YUCK = new String[] {
 		"Yuck",
 		"Blah",
-		"Ugh",
+		"Bluh",
+		"Ugh..",
 		"Eh..",
 		"Ew..",
 	};

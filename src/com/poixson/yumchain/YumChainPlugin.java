@@ -1,6 +1,5 @@
 package com.poixson.yumchain;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -164,15 +163,7 @@ public class YumChainPlugin extends xJavaPlugin {
 
 	@Override
 	protected void loadConfigs() {
-		// plugin dir
-		{
-			final File path = this.getDataFolder();
-			if (!path.isDirectory()) {
-				if (!path.mkdir())
-					throw new RuntimeException("Failed to create directory: " + path.toString());
-				log.info(LOG_PREFIX + "Created directory: " + path.toString());
-			}
-		}
+		this.mkPluginDir();
 		// config.yml
 		{
 			final FileConfiguration cfg = this.getConfig();

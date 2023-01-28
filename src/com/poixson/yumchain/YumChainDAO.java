@@ -107,6 +107,11 @@ public class YumChainDAO {
 				if (percent >= 1.0) {
 					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
 					YumChainPlugin.log.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
+					// fill hunger bar
+					if (player.getFoodLevel()< 20) {
+						final FoodFullerTask task = new FoodFullerTask(this.plugin, player);
+						task.start();
+					}
 				}
 			}
 		}

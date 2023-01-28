@@ -66,10 +66,9 @@ public class YumChainDAO {
 		// bypass
 		if (ate == null) {
 			this.quietyum.set(true);
-			if (this.plugin.isBypassFood(type)) {
+			if (this.plugin.isBypassFood(type))
 				this.bypass.set(true);
-				return;
-			}
+			return;
 		}
 		// already ate
 		if (ate.booleanValue()) {

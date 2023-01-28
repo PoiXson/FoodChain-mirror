@@ -29,8 +29,8 @@ public class YumChainDAO {
 	protected final AtomicInteger lastrnd_yum  = new AtomicInteger(0);
 	protected final AtomicInteger lastrnd_yuck = new AtomicInteger(0);
 
-	protected final AtomicBoolean quietyum = new AtomicBoolean(false);
-	protected final AtomicBoolean bypass   = new AtomicBoolean(false);
+	protected final AtomicBoolean quietyum = new AtomicBoolean(true);
+	protected final AtomicBoolean bypass   = new AtomicBoolean(true);
 
 
 
@@ -59,6 +59,7 @@ public class YumChainDAO {
 
 
 
+	// note: not triggered by cake
 	public void consume(final PlayerItemConsumeEvent event) {
 		final ItemStack item = event.getItem();
 		final Material type = item.getType();
@@ -66,14 +67,16 @@ public class YumChainDAO {
 		// bypass
 		if (ate == null) {
 			this.quietyum.set(true);
-			if (this.plugin.isBypassFood(type))
-				this.bypass.set(true);
+			this.bypass.set( this.plugin.isBypassFood(type) );
 			return;
 		}
+		this.bypass.set(false);
 		// already ate
 		if (ate.booleanValue()) {
 			this.reset(true);
 			this.quietyum.set(true);
+		} else {
+			this.quietyum.set(false);
 		}
 		this.foods.put(type, Boolean.TRUE);
 	}
@@ -93,7 +96,7 @@ public class YumChainDAO {
 			final int ate   = this.getChainAte();
 			final int total = this.getFoodsCount();
 			event.setFoodLevel(lvl + ate);
-			if (!this.quietyum.getAndSet(false)) {
+			if (!this.quietyum.getAndSet(true)) {
 				player.sendMessage(String.format(
 					"%s [%d/%d] %s",
 					ChatColor.AQUA,

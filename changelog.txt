@@ -1,6 +1,13 @@
 YumChain - Eat a variety of foods for a bonus
 
 
+2023-01-30 - 0.1.8
+==================
+* fixed bug when eating some foods
+* fixed handling of cake eating
+* fill hunger bar when yum chain is completed
+
+
 2023-01-16 - 0.1.4
 ==================
 * added plugin update checker - provided by pxnCommonPluginMC

@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.bstats.bukkit.Metrics;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,7 +16,8 @@ import com.poixson.yumchain.commands.Commands;
 
 
 public class YumChainPlugin extends xJavaPlugin {
-	protected static final String LOG_PREFIX  = "[YUM] ";
+	public static final String LOG_PREFIX  = "[YUM] ";
+	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 	protected static final int SPIGOT_PLUGIN_ID = 107050;
 	protected static final int BSTATS_PLUGIN_ID = 17233;
 

@@ -1,5 +1,7 @@
 package com.poixson.yumchain;
 
+import static com.poixson.commonmc.tools.plugin.xJavaPlugin.LOG;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
@@ -106,7 +108,7 @@ public class YumChainDAO {
 				));
 				if (percent >= 1.0) {
 					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
-					YumChainPlugin.log.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
+					LOG.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
 					// fill hunger bar
 					if (player.getFoodLevel()< 20) {
 						final FoodFullerTask task = new FoodFullerTask(this.plugin, player);

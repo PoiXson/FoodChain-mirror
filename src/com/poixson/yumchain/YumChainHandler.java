@@ -5,38 +5,25 @@ import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
+import com.poixson.commonmc.tools.plugin.xListener;
 
-public class YumChainHandler implements Listener {
 
-	protected final YumChainPlugin plugin;
+public class YumChainHandler extends xListener<YumChainPlugin> {
 
 	protected final ConcurrentHashMap<UUID, YumChainDAO> chains = new ConcurrentHashMap<UUID, YumChainDAO>();
 
 
 
 	public YumChainHandler(final YumChainPlugin plugin) {
-		this.plugin = plugin;
-	}
-
-
-
-	public void register() {
-		Bukkit.getPluginManager()
-			.registerEvents(this, this.plugin);
-	}
-	public void unregister() {
-		HandlerList.unregisterAll(this);
+		super(plugin);
 	}
 
 

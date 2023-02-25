@@ -19,8 +19,6 @@ public class YumChainPlugin extends xJavaPlugin {
 	public static final String LOG_PREFIX  = "[YUM] ";
 	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 
-	protected static final AtomicReference<YumChainPlugin> instance = new AtomicReference<YumChainPlugin>(null);
-
 	// listeners
 	protected final AtomicReference<Commands>     commandListener = new AtomicReference<Commands>(null);
 	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);
@@ -89,8 +87,6 @@ public class YumChainPlugin extends xJavaPlugin {
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		if (!instance.compareAndSet(null, this))
-			throw new RuntimeException("Plugin instance already enabled?");
 		// commands listener
 		{
 			final Commands listener = new Commands(this);
@@ -131,8 +127,6 @@ public class YumChainPlugin extends xJavaPlugin {
 			if (listener != null)
 				listener.unregister();
 		}
-		if (!instance.compareAndSet(this, null))
-			(new RuntimeException("Disable wrong instance of plugin?")).printStackTrace();
 		// clear config caches
 		this.cacheChainFoods.set(null);
 		this.cacheBypassFoods.set(null);

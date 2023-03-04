@@ -16,6 +16,8 @@ import com.poixson.yumchain.commands.Commands;
 
 
 public class YumChainPlugin extends xJavaPlugin {
+	@Override public int getSpigotPluginID() { return 107050; }
+	@Override public int getBStatsID() {       return 17233;  }
 	public static final String LOG_PREFIX  = "[YUM] ";
 	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
 
@@ -27,9 +29,6 @@ public class YumChainPlugin extends xJavaPlugin {
 	protected final AtomicReference<Material[]> cacheBypassFoods = new AtomicReference<Material[]>(null);
 	protected final AtomicReference<String[]> cacheMessagesYum   = new AtomicReference<String[]>(null);
 	protected final AtomicReference<String[]> cacheMessagesYuck  = new AtomicReference<String[]>(null);
-
-	@Override public int getSpigotPluginID() { return 107050; }
-	@Override public int getBStatsID() {       return 17233;  }
 
 	protected static final String[] DEFAULT_CHAIN_FOODS = new String[] {
 		"APPLE",

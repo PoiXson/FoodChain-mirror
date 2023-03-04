@@ -120,7 +120,7 @@ public class YumChainPlugin extends xJavaPlugin {
 			if (listener != null)
 				listener.unregister();
 		}
-		// yum chain listener
+		// yum chain handler
 		{
 			final YumChainHandler listener = this.chainHandler.getAndSet(null);
 			if (listener != null)

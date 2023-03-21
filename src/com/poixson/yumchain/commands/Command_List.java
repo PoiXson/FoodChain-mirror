@@ -16,13 +16,13 @@ import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class CommandList extends pxnCommand {
+public class Command_List extends pxnCommand {
 
 	protected final YumChainPlugin plugin;
 
 
 
-	public CommandList(final YumChainPlugin plugin) {
+	public Command_List(final YumChainPlugin plugin) {
 		super(
 			"list"
 		);

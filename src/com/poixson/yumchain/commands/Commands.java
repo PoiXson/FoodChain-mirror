@@ -14,8 +14,8 @@ public class Commands extends pxnCommandsHandler {
 			"yum",
 			"yumchain"
 		);
-		this.addCommand(new CommandList(plugin));
-		this.addCommand(new CommandReset(plugin));
+		this.addCommand(new Command_List(plugin));
+		this.addCommand(new Command_Reset(plugin));
 	}
 
 

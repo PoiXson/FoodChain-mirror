@@ -9,13 +9,13 @@ import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class CommandReset extends pxnCommand {
+public class Command_Reset extends pxnCommand {
 
 	protected final YumChainPlugin plugin;
 
 
 
-	public CommandReset(final YumChainPlugin plugin) {
+	public Command_Reset(final YumChainPlugin plugin) {
 		super(
 			"reset"
 		);

@@ -1,6 +1,5 @@
 package com.poixson.yumchain.commands;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -25,8 +24,7 @@ public class Command_Reset extends pxnCommand {
 
 
 	@Override
-	public boolean run(final CommandSender sender,
-			final Command cmd, final String[] args) {
+	public boolean run(final CommandSender sender, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 //TODO: reset other player
 		final YumChainDAO chain = this.plugin.getYumChain(player);

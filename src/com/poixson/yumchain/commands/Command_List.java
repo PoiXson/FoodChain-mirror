@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -39,8 +38,7 @@ public class Command_List extends pxnCommand {
 
 
 	@Override
-	public boolean run(final CommandSender sender,
-			final Command cmd, final String[] args) {
+	public boolean run(final CommandSender sender, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
 			sender.sendMessage(LOG_PREFIX + "Only players can use this command.");

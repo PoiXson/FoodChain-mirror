@@ -22,9 +22,7 @@ public class Command_List extends pxnCommand {
 
 
 	public Command_List(final YumChainPlugin plugin) {
-		super(
-			"list"
-		);
+		super("list");
 		this.plugin = plugin;
 	}
 
@@ -38,7 +36,7 @@ public class Command_List extends pxnCommand {
 
 
 	@Override
-	public boolean run(final CommandSender sender, final String[] args) {
+	public boolean run(final CommandSender sender, final String label, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
 			sender.sendMessage(LOG_PREFIX + "Only players can use this command.");

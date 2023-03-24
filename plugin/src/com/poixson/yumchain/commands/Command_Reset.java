@@ -15,16 +15,14 @@ public class Command_Reset extends pxnCommand {
 
 
 	public Command_Reset(final YumChainPlugin plugin) {
-		super(
-			"reset"
-		);
+		super("reset");
 		this.plugin = plugin;
 	}
 
 
 
 	@Override
-	public boolean run(final CommandSender sender, final String[] args) {
+	public boolean run(final CommandSender sender, final String label, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 //TODO: reset other player
 		final YumChainDAO chain = this.plugin.getYumChain(player);

@@ -8,14 +8,16 @@ import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class Command_Reset extends pxnCommand {
+public class Command_Reset extends pxnCommand<YumChainPlugin> {
 
 	protected final YumChainPlugin plugin;
 
 
 
 	public Command_Reset(final YumChainPlugin plugin) {
-		super("reset");
+		super(plugin,
+			"reset"
+		);
 		this.plugin = plugin;
 	}
 

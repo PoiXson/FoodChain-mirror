@@ -4,13 +4,12 @@ import com.poixson.commonmc.tools.commands.pxnCommandsHandler;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class Commands extends pxnCommandsHandler {
+public class Commands extends pxnCommandsHandler<YumChainPlugin> {
 
 
 
 	public Commands(final YumChainPlugin plugin) {
-		super(
-			plugin,
+		super(plugin,
 			"yum",
 			"yumchain"
 		);

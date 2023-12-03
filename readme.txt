@@ -4,9 +4,9 @@ YumChain - Eat a variety of foods for a bonus
 
 This plugin changes the hunger points system. Eat one of every food to get a bonus of not getting hungry. If you eat the same thing twice, the chain resets. You get a half food point for eating something, then it doubles each time your chain gets longer, and you'll get hungry less.
 
-Requires pxnCommonMC plugin:
-https://dev.bukkit.org/projects/pxncommonpluginmc
-or https://www.spigotmc.org/resources/pxncommonpluginmc.107049/
+Requires pxnPluginLib plugin:
+https://dev.bukkit.org/projects/pxnpluginlib
+or https://www.spigotmc.org/resources/pxnpluginlib.107049/
 
 Discord: https://discord.gg/jHgP2a3kDx
 Dev Builds: https://dl.poixson.com/mcplugins/YumChain/

@@ -10,7 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.poixson.commonmc.tools.commands.pxnCommand;
+import com.poixson.pluginlib.tools.commands.pxnCommand;
 import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 

@@ -1,6 +1,6 @@
 package com.poixson.yumchain.commands;
 
-import com.poixson.commonmc.tools.commands.pxnCommandsHandler;
+import com.poixson.pluginlib.tools.commands.pxnCommandsHandler;
 import com.poixson.yumchain.YumChainPlugin;
 
 

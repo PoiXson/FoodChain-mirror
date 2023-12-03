@@ -1,6 +1,6 @@
 package com.poixson.yumchain;
 
-import static com.poixson.commonmc.tools.plugin.xJavaPlugin.LOG;
+import static com.poixson.pluginlib.tools.plugin.xJavaPlugin.LOG;
 
 import java.util.HashMap;
 import java.util.Iterator;

@@ -1,12 +1,11 @@
 package com.poixson.yumchain;
 
-import static com.poixson.pluginlib.tools.plugin.xJavaPlugin.LOG;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -108,7 +107,7 @@ public class YumChainDAO {
 				));
 				if (percent >= 1.0) {
 					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
-					LOG.info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
+					this.log().info(YumChainPlugin.LOG_PREFIX+"Yum chain is full: "+player.getName());
 					// fill hunger bar
 					if (player.getFoodLevel()< 20) {
 						final FoodFullerTask task = new FoodFullerTask(this.plugin, player);
@@ -151,6 +150,12 @@ public class YumChainDAO {
 		final int rnd = RandomUtils.GetNewRandom(0, msgs.length-1, this.lastrnd_yuck.get());
 		this.lastrnd_yuck.set(rnd);
 		return msgs[rnd];
+	}
+
+
+
+	public Logger log() {
+		return this.plugin.getLogger();
 	}
 
 

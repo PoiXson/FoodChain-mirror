@@ -15,7 +15,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.poixson.utils.RandomUtils;
+import com.poixson.tools.xRand;
 
 
 public class YumChainDAO {
@@ -141,13 +141,13 @@ public class YumChainDAO {
 
 	public String getRandomYum() {
 		final String[] msgs = this.plugin.getYumMessages();
-		final int rnd = RandomUtils.GetNewRandom(0, msgs.length-1, this.lastrnd_yum.get());
+		final int rnd = xRand.Get(0, msgs.length-1).nextInt(this.lastrnd_yum.get());
 		this.lastrnd_yum.set(rnd);
 		return msgs[rnd];
 	}
 	public String getRandomYuck() {
 		final String[] msgs = this.plugin.getYuckMessages();
-		final int rnd = RandomUtils.GetNewRandom(0, msgs.length-1, this.lastrnd_yuck.get());
+		final int rnd = xRand.Get(0, msgs.length-1).nextInt(this.lastrnd_yuck.get());
 		this.lastrnd_yuck.set(rnd);
 		return msgs[rnd];
 	}

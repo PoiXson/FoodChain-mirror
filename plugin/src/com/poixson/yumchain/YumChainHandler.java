@@ -16,7 +16,9 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import com.poixson.tools.events.xListener;
 
 
-public class YumChainHandler extends xListener<YumChainPlugin> {
+public class YumChainHandler extends xListener {
+
+	protected final YumChainPlugin plugin;
 
 	protected final ConcurrentHashMap<UUID, YumChainDAO> chains = new ConcurrentHashMap<UUID, YumChainDAO>();
 
@@ -24,6 +26,7 @@ public class YumChainHandler extends xListener<YumChainPlugin> {
 
 	public YumChainHandler(final YumChainPlugin plugin) {
 		super(plugin);
+		this.plugin = plugin;
 	}
 
 

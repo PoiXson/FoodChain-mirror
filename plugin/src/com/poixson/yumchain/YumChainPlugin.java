@@ -109,6 +109,7 @@ public class YumChainPlugin extends xJavaPlugin {
 				metrics.addCustomChart(YumChainFullChart.GetChart(this));
 			}
 		}
+		this.saveConfigs();
 	}
 
 	@Override
@@ -166,7 +167,6 @@ public class YumChainPlugin extends xJavaPlugin {
 			this.config.set(cfg);
 			this.configDefaults(cfg);
 			cfg.options().copyDefaults(true);
-			super.saveConfig();
 		}
 	}
 	@Override

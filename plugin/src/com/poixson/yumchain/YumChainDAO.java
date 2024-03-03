@@ -106,8 +106,8 @@ public class YumChainDAO {
 					this.getRandomYum()
 				));
 				if (percent >= 1.0) {
-					player.sendMessage(ChatColor.AQUA + "Yum chain is full, no more hunger!");
-					this.log().info("Yum chain is full: " + player.getName());
+					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
+					this.log().info("Yum chain is full: "+player.getName());
 					// fill hunger bar
 					if (player.getFoodLevel()< 20) {
 						final FoodFullerTask task = new FoodFullerTask(this.plugin, player);

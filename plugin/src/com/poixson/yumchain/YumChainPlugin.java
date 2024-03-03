@@ -18,8 +18,7 @@ import com.poixson.yumchain.commands.Commands;
 public class YumChainPlugin extends xJavaPlugin {
 	@Override public int getSpigotPluginID() { return 107050; }
 	@Override public int getBStatsID() {       return 17233;  }
-	public static final String LOG_PREFIX  = "[YUM] ";
-	public static final String CHAT_PREFIX = ChatColor.AQUA + LOG_PREFIX + ChatColor.WHITE;
+	public static final String CHAT_PREFIX = ChatColor.AQUA + "[YUM] " + ChatColor.WHITE;
 
 	// listeners
 	protected final AtomicReference<Commands>     commandListener = new AtomicReference<Commands>(null);

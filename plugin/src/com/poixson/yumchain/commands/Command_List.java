@@ -1,7 +1,5 @@
 package com.poixson.yumchain.commands;
 
-import static com.poixson.yumchain.YumChainPlugin.LOG_PREFIX;
-
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -41,11 +39,11 @@ public class Command_List extends pxnCommand<YumChainPlugin> {
 	public boolean run(final CommandSender sender, final String label, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
-			sender.sendMessage(LOG_PREFIX + "Only players can use this command.");
+			sender.sendMessage("Only players can use this command.");
 			return true;
 		}
 		if (!player.hasPermission("yumchain.list")) {
-			player.sendMessage(LOG_PREFIX + "You don't have permission to use this.");
+			player.sendMessage("You don't have permission to use this.");
 			return true;
 		}
 		final YumChainDAO chain = this.plugin.getYumChain(player);

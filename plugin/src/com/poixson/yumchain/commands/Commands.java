@@ -9,7 +9,7 @@ public class Commands extends pxnCommandsHandler<YumChainPlugin> {
 
 
 	public Commands(final YumChainPlugin plugin) {
-		super(plugin,
+		super(
 			"yum",
 			"yumchain"
 		);

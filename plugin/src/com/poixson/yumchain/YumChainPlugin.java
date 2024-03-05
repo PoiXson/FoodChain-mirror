@@ -91,7 +91,7 @@ public class YumChainPlugin extends xJavaPlugin {
 			final Commands previous = this.commandListener.getAndSet(listener);
 			if (previous != null)
 				previous.unregister();
-			listener.register();
+			listener.register(this);
 		}
 		// yum chain handler
 		{

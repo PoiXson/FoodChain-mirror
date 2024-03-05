@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import com.poixson.tools.events.xListener;
 
 
-public class YumChainHandler extends xListener {
+public class YumChainHandler implements xListener {
 
 	protected final YumChainPlugin plugin;
 
@@ -25,8 +25,13 @@ public class YumChainHandler extends xListener {
 
 
 	public YumChainHandler(final YumChainPlugin plugin) {
-		super(plugin);
 		this.plugin = plugin;
+	}
+
+
+
+	public void register() {
+		xListener.super.register(this.plugin);
 	}
 
 

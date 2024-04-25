@@ -33,6 +33,8 @@ public class YumChainDAO {
 	protected final AtomicBoolean quietyum = new AtomicBoolean(true);
 	protected final AtomicBoolean bypass   = new AtomicBoolean(true);
 
+	protected final xRand random = new xRand();
+
 
 
 	public YumChainDAO(final YumChainPlugin plugin, final UUID uuid) {
@@ -141,13 +143,13 @@ public class YumChainDAO {
 
 	public String getRandomYum() {
 		final String[] msgs = this.plugin.getYumMessages();
-		final int rnd = xRand.Get(0, msgs.length-1).nextInt(this.lastrnd_yum.get());
+		final int rnd = this.random.nextInt(0, msgs.length-1, this.lastrnd_yum.get());
 		this.lastrnd_yum.set(rnd);
 		return msgs[rnd];
 	}
 	public String getRandomYuck() {
 		final String[] msgs = this.plugin.getYuckMessages();
-		final int rnd = xRand.Get(0, msgs.length-1).nextInt(this.lastrnd_yuck.get());
+		final int rnd = this.random.nextInt(0, msgs.length-1, this.lastrnd_yuck.get());
 		this.lastrnd_yuck.set(rnd);
 		return msgs[rnd];
 	}

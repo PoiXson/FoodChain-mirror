@@ -24,6 +24,7 @@ public class Command_Reset extends xCMD_Labels {
 	@Override
 	public boolean run(final CommandSender sender, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
+//TODO: permissions
 //TODO: reset other player
 		final YumChainDAO chain = this.plugin.getYumChain(player);
 		chain.reset(true);

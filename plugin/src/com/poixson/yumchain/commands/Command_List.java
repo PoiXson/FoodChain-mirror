@@ -28,12 +28,13 @@ public class Command_List extends xCMD_Labels {
 
 	@Override
 	public boolean run(final CommandSender sender, final String[] args) {
+//TODO: permissions for .other
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
 			sender.sendMessage("Only players can use this command.");
 			return true;
 		}
-		if (!player.hasPermission("yumchain.list")) {
+		if (!player.hasPermission("yumchain.cmd.list")) {
 			player.sendMessage("You don't have permission to use this.");
 			return true;
 		}
@@ -49,10 +50,8 @@ public class Command_List extends xCMD_Labels {
 			final boolean ate = entry.getValue().booleanValue();
 			msg.append(String.format(
 				"  %s[%s]%s %s\n",
-				ChatColor.GREEN,
-				(ate ? "x" : "_"),
-				ChatColor.WHITE,
-				name
+				ChatColor.GREEN, (ate ? "x" : "_"),
+				ChatColor.WHITE, name
 			));
 		}
 		player.sendMessage(msg.toString());

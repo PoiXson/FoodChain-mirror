@@ -8,35 +8,26 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.poixson.tools.commands.pxnCommand;
+import com.poixson.tools.commands.xCMD_Labels;
 import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class Command_List extends pxnCommand<YumChainPlugin> {
+public class Command_List extends xCMD_Labels {
 
 	protected final YumChainPlugin plugin;
 
 
 
 	public Command_List(final YumChainPlugin plugin) {
-		super(plugin,
-			"list"
-		);
+		super("list");
 		this.plugin = plugin;
 	}
 
 
 
 	@Override
-	public boolean isDefault() {
-		return true;
-	}
-
-
-
-	@Override
-	public boolean run(final CommandSender sender, final String label, final String[] args) {
+	public boolean run(final CommandSender sender, final String[] args) {
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
 			sender.sendMessage("Only players can use this command.");

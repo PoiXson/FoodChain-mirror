@@ -21,8 +21,9 @@ public class YumChainPlugin extends xJavaPlugin {
 	public static final String CHAT_PREFIX = ChatColor.AQUA+"[YUM] "+ChatColor.WHITE;
 
 	// listeners
-	protected final AtomicReference<Commands>     commandListener = new AtomicReference<Commands>(null);
 	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);
+
+	protected final Commands commands;
 
 	protected final AtomicReference<Material[]> cacheChainFoods  = new AtomicReference<Material[]>(null);
 	protected final AtomicReference<Material[]> cacheBypassFoods = new AtomicReference<Material[]>(null);
@@ -78,6 +79,7 @@ public class YumChainPlugin extends xJavaPlugin {
 
 	public YumChainPlugin() {
 		super(YumChainPlugin.class);
+		this.commands = new Commands(this);
 	}
 
 
@@ -85,14 +87,6 @@ public class YumChainPlugin extends xJavaPlugin {
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		// commands listener
-		{
-			final Commands listener = new Commands(this);
-			final Commands previous = this.commandListener.getAndSet(listener);
-			if (previous != null)
-				previous.unregister();
-			listener.register(this);
-		}
 		// yum chain handler
 		{
 			final YumChainHandler listener = new YumChainHandler(this);
@@ -101,6 +95,8 @@ public class YumChainPlugin extends xJavaPlugin {
 				previous.unregister();
 			listener.register();
 		}
+		// commands
+		this.commands.register();
 		// custom stats
 		{
 			final Metrics metrics = this.metrics.get();
@@ -114,12 +110,8 @@ public class YumChainPlugin extends xJavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
-		// commands listener
-		{
-			final Commands listener = this.commandListener.getAndSet(null);
-			if (listener != null)
-				listener.unregister();
-		}
+		// commands
+		this.commands.unregister();
 		// yum chain handler
 		{
 			final YumChainHandler listener = this.chainHandler.getAndSet(null);

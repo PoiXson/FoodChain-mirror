@@ -159,7 +159,7 @@ public class YumChainPlugin extends xJavaPlugin {
 
 	@Override
 	protected void loadConfigs() {
-		this.mkPluginDir();
+		super.loadConfigs();
 		// config.yml
 		{
 			final FileConfiguration cfg = this.getConfig();
@@ -170,11 +170,11 @@ public class YumChainPlugin extends xJavaPlugin {
 	}
 	@Override
 	protected void saveConfigs() {
-		// config.yml
 		super.saveConfig();
 	}
 	@Override
 	protected void configDefaults(final FileConfiguration cfg) {
+		super.configDefaults(cfg);
 		cfg.addDefault("Foods",         DEFAULT_CHAIN_FOODS  );
 		cfg.addDefault("Bypass",        DEFAULT_BYPASS_FOODS );
 		cfg.addDefault("Yum Messages",  DEFAULT_MESSAGES_YUM );

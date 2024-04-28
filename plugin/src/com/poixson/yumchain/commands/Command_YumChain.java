@@ -4,6 +4,7 @@ import com.poixson.tools.commands.pxnCommandRoot;
 import com.poixson.yumchain.YumChainPlugin;
 
 
+// /yumchain
 public class Command_YumChain extends pxnCommandRoot {
 
 	protected final Command_List  cmd_list;

@@ -1,6 +1,7 @@
 package com.poixson.yumchain.commands;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
@@ -13,6 +14,7 @@ import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
+// /yumchain list
 public class Command_List extends pxnCommand {
 
 	protected final YumChainPlugin plugin;
@@ -21,10 +23,7 @@ public class Command_List extends pxnCommand {
 
 	public Command_List(final YumChainPlugin plugin) {
 		super(
-			null, null,
-			new String[] {
-				"list"
-			}
+			"list"
 		);
 		this.plugin = plugin;
 	}
@@ -32,7 +31,7 @@ public class Command_List extends pxnCommand {
 
 
 	@Override
-	public boolean run(final CommandSender sender, final String[] args) {
+	public boolean onCommand(final CommandSender sender, final String[] args) {
 //TODO: permissions for .other
 		final Player player = (sender instanceof Player ? (Player)sender : null);
 		if (player == null) {
@@ -61,6 +60,15 @@ public class Command_List extends pxnCommand {
 		}
 		player.sendMessage(msg.toString());
 		return true;
+	}
+
+
+
+	@Override
+	public List<String> onTabComplete(final CommandSender sender, final String[] args) {
+//TODO
+System.out.println("TAB:"); for (final String arg : args) System.out.println("  "+arg);
+return null;
 	}
 
 

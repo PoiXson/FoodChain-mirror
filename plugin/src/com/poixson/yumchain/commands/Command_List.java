@@ -8,19 +8,24 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.poixson.tools.commands.xCMD_Labels;
+import com.poixson.tools.commands.pxnCommand;
 import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class Command_List extends xCMD_Labels {
+public class Command_List extends pxnCommand {
 
 	protected final YumChainPlugin plugin;
 
 
 
 	public Command_List(final YumChainPlugin plugin) {
-		super("list");
+		super(
+			null, null,
+			new String[] {
+				"list"
+			}
+		);
 		this.plugin = plugin;
 	}
 

@@ -7,13 +7,6 @@ depend:
 authors: [ lorenzop ]
 website: ${project.url}
 description: ${project.description}
-commands:
-    yum:
-        description: "I don't feel like eating this"
-        usage: "Usage: /yum <cmd>"
-    yumchain:
-        description: "I don't feel like eating this"
-        usage: "Usage: /yumchain <cmd>"
 permissions:
     yumchain.*:
         default: op

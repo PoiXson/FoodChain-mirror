@@ -23,7 +23,7 @@ public class YumChainPlugin extends xJavaPlugin {
 	// listeners
 	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);
 
-	protected final Commands commands;
+	protected final AtomicReference<Commands> commands = new AtomicReference<Commands>(null);
 
 	protected final AtomicReference<Material[]> cacheChainFoods  = new AtomicReference<Material[]>(null);
 	protected final AtomicReference<Material[]> cacheBypassFoods = new AtomicReference<Material[]>(null);
@@ -79,7 +79,6 @@ public class YumChainPlugin extends xJavaPlugin {
 
 	public YumChainPlugin() {
 		super(YumChainPlugin.class);
-		this.commands = new Commands(this);
 	}
 
 
@@ -96,7 +95,12 @@ public class YumChainPlugin extends xJavaPlugin {
 			listener.register();
 		}
 		// commands
-		this.commands.register();
+		{
+			final Commands commands = new Commands(this);
+			final Commands previous = this.commands.getAndSet(commands);
+			if (previous != null)
+				previous.close();
+		}
 		// custom stats
 		{
 			final Metrics metrics = this.metrics.get();
@@ -111,7 +115,11 @@ public class YumChainPlugin extends xJavaPlugin {
 	public void onDisable() {
 		super.onDisable();
 		// commands
-		this.commands.unregister();
+		{
+			final Commands commands = this.commands.getAndSet(null);
+			if (commands != null)
+				commands.close();
+		}
 		// yum chain handler
 		{
 			final YumChainHandler listener = this.chainHandler.getAndSet(null);

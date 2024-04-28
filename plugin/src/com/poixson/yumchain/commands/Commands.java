@@ -1,20 +1,26 @@
 package com.poixson.yumchain.commands;
 
-import com.poixson.tools.commands.pxnCommandsHandler;
+import java.io.Closeable;
+
 import com.poixson.yumchain.YumChainPlugin;
 
 
-public class Commands extends pxnCommandsHandler<YumChainPlugin> {
+public class Commands implements Closeable {
+
+	// /yumchain
+	protected final Command_YumChain cmd_yumchain;
 
 
 
 	public Commands(final YumChainPlugin plugin) {
-		super(
-			"yum",
-			"yumchain"
-		);
-		this.addCommand(new Command_List(plugin));
-		this.addCommand(new Command_Reset(plugin));
+		this.cmd_yumchain = new Command_YumChain(plugin);
+	}
+
+
+
+	@Override
+	public void close() {
+		this.cmd_yumchain.close();
 	}
 
 

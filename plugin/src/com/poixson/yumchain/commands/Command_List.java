@@ -38,10 +38,7 @@ public class Command_List extends pxnCommand {
 			sender.sendMessage("Only players can use this command.");
 			return true;
 		}
-		if (!player.hasPermission("yumchain.cmd.list")) {
-			player.sendMessage("You don't have permission to use this.");
-			return true;
-		}
+		if (!player.hasPermission("yumchain.cmd.list")) return false;
 		final YumChainDAO chain = this.plugin.getYumChain(player);
 		final StringBuilder msg = new StringBuilder();
 		msg.append("\n")

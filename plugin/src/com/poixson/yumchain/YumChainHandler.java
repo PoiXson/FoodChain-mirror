@@ -13,7 +13,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
-import com.poixson.tools.events.xListener;
+import com.poixson.tools.xListener;
 
 
 public class YumChainHandler implements xListener {

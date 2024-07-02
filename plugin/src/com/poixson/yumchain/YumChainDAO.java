@@ -33,7 +33,7 @@ public class YumChainDAO {
 	protected final AtomicBoolean quietyum = new AtomicBoolean(true);
 	protected final AtomicBoolean bypass   = new AtomicBoolean(true);
 
-	protected final xRand random = new xRand();
+	protected final xRand random = (new xRand()).seed_time();
 
 
 

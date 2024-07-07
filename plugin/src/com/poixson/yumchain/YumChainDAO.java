@@ -157,7 +157,7 @@ public class YumChainDAO {
 
 
 	public Logger log() {
-		return this.plugin.getLogger();
+		return this.plugin.log();
 	}
 
 

@@ -1,7 +1,8 @@
 package com.poixson.yumchain;
 
+import static com.poixson.utils.BukkitUtils.Log;
+
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -10,7 +11,6 @@ import org.bukkit.plugin.ServicesManager;
 
 
 public class YumChainAPI {
-	protected static final Logger LOG = Logger.getLogger("Minecraft");
 
 	protected static final String NAME  = "YumChain";
 	protected static final String CLASS = "com.poixson.yumchain.YumChainPlugin";
@@ -39,7 +39,7 @@ public class YumChainAPI {
 			return new YumChainAPI(plugin);
 		} catch (ClassNotFoundException e) {
 			if (errcount_PluginNotFound.getAndIncrement() < 10)
-				LOG.severe("Plugin not found: "+NAME);
+				Log().severe("Plugin not found: "+NAME);
 			return null;
 		}
 	}

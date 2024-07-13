@@ -163,12 +163,10 @@ public class YumChainPlugin extends xJavaPlugin {
 	protected void loadConfigs() {
 		super.loadConfigs();
 		// config.yml
-		{
-			final FileConfiguration cfg = this.getConfig();
-			this.config.set(cfg);
-			this.configDefaults(cfg);
-			cfg.options().copyDefaults(true);
-		}
+		final FileConfiguration cfg = this.getConfig();
+		this.config.set(cfg);
+		this.configDefaults(cfg);
+		cfg.options().copyDefaults(true);
 	}
 	@Override
 	protected void saveConfigs() {

@@ -108,6 +108,8 @@ public class YumChainPlugin extends xJavaPlugin {
 				metrics.addCustomChart(YumChainFullChart.GetChart(this));
 			}
 		}
+		// save
+		this.setConfigChanged();
 		this.saveConfigs();
 	}
 

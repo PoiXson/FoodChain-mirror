@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -26,9 +25,6 @@ public class YumChainDAO {
 	public final UUID uuid;
 
 	public final HashMap<Material, Boolean> foods = new HashMap<Material, Boolean>();
-
-	protected final AtomicInteger lastrnd_yum  = new AtomicInteger(0);
-	protected final AtomicInteger lastrnd_yuck = new AtomicInteger(0);
 
 	protected final AtomicBoolean quietyum = new AtomicBoolean(true);
 	protected final AtomicBoolean bypass   = new AtomicBoolean(true);
@@ -143,14 +139,12 @@ public class YumChainDAO {
 
 	public String getRandomYum() {
 		final String[] msgs = this.plugin.getYumMessages();
-		final int rnd = this.random.nextInt(0, msgs.length-1, this.lastrnd_yum.get());
-		this.lastrnd_yum.set(rnd);
+		final int rnd = this.random.nextInt(0, msgs.length-1);
 		return msgs[rnd];
 	}
 	public String getRandomYuck() {
 		final String[] msgs = this.plugin.getYuckMessages();
-		final int rnd = this.random.nextInt(0, msgs.length-1, this.lastrnd_yuck.get());
-		this.lastrnd_yuck.set(rnd);
+		final int rnd = this.random.nextInt(0, msgs.length-1);
 		return msgs[rnd];
 	}
 

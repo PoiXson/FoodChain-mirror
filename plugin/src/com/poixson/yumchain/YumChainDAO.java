@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -15,6 +14,9 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.poixson.tools.xRand;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 
 public class YumChainDAO {
@@ -51,8 +53,8 @@ public class YumChainDAO {
 			this.foods.put(food, Boolean.FALSE);
 		}
 		if (sendmsg) {
-			Bukkit.getPlayer(this.uuid)
-				.sendMessage(ChatColor.AQUA+this.getRandomYuck());
+			final Player player = Bukkit.getPlayer(this.uuid);
+			player.sendMessage(Component.text(this.getRandomYuck()).color(NamedTextColor.AQUA));
 		}
 	}
 
@@ -96,15 +98,14 @@ public class YumChainDAO {
 			final int total = this.getFoodsCount();
 			event.setFoodLevel(lvl + ate);
 			if (!this.quietyum.getAndSet(true)) {
-				player.sendMessage(String.format(
-					"%s [%d/%d] %s",
-					ChatColor.AQUA,
+				player.sendMessage(Component.text(String.format(
+					" [%d/%d] %s",
 					Integer.valueOf(ate),
 					Integer.valueOf(total),
 					this.getRandomYum()
-				));
+				)).color(NamedTextColor.AQUA));
 				if (percent >= 1.0) {
-					player.sendMessage(ChatColor.AQUA+"Yum chain is full, no more hunger!");
+					player.sendMessage(Component.text("Yum chain is full, no more hunger!").color(NamedTextColor.AQUA));
 					this.log().info("Yum chain is full: "+player.getName());
 					// fill hunger bar
 					if (player.getFoodLevel()< 20) {

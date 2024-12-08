@@ -6,7 +6,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.bstats.bukkit.Metrics;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -14,11 +13,14 @@ import org.bukkit.entity.Player;
 import com.poixson.tools.xJavaPlugin;
 import com.poixson.yumchain.commands.Commands;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 
 public class YumChainPlugin extends xJavaPlugin {
 	@Override public int getSpigotPluginID() { return 107050; }
 	@Override public int getBStatsID() {       return 17233;  }
-	public static final String CHAT_PREFIX = ChatColor.AQUA+"[YUM] "+ChatColor.WHITE;
+	public static final Component CHAT_PREFIX = Component.text("[YUM] ").color(NamedTextColor.AQUA);
 
 	// listeners
 	protected final AtomicReference<YumChainHandler> chainHandler = new AtomicReference<YumChainHandler>(null);

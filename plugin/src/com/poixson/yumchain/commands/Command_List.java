@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -12,6 +11,9 @@ import org.bukkit.entity.Player;
 import com.poixson.tools.commands.pxnCommand;
 import com.poixson.yumchain.YumChainDAO;
 import com.poixson.yumchain.YumChainPlugin;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 
 // /yumchain list
@@ -40,22 +42,18 @@ public class Command_List extends pxnCommand {
 		}
 		if (!player.hasPermission("yumchain.cmd.list")) return false;
 		final YumChainDAO chain = this.plugin.getYumChain(player);
-		final StringBuilder msg = new StringBuilder();
-		msg.append("\n")
-			.append(ChatColor.GREEN)
-			.append("Foods:\n");
+		Component msg = Component.empty();
+		msg = msg.append(Component.text("\nFoods:\n").color(NamedTextColor.GREEN));
 		final Iterator<Entry<Material, Boolean>> it = chain.foods.entrySet().iterator();
 		while (it.hasNext()) {
 			final Entry<Material, Boolean> entry = it.next();
 			final String name = entry.getKey().name();
 			final boolean ate = entry.getValue().booleanValue();
-			msg.append(String.format(
-				"  %s[%s]%s %s\n",
-				ChatColor.GREEN, (ate ? "x" : "_"),
-				ChatColor.WHITE, name
-			));
+			msg = msg
+				.append(Component.text(String.format("  [%s] ", ate?"x":"_")).color(NamedTextColor.GREEN))
+				.append(Component.text(name+"\n"                            ).color(NamedTextColor.WHITE));
 		}
-		player.sendMessage(msg.toString());
+		player.sendMessage(msg);
 		return true;
 	}
 

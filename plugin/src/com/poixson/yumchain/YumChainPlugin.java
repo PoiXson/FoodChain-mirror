@@ -18,8 +18,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 
 public class YumChainPlugin extends xJavaPlugin {
-	@Override public int getSpigotPluginID() { return 107050; }
-	@Override public int getBStatsID() {       return 17233;  }
+	@Override public int getBStatsID() { return 17233; }
 	public static final Component CHAT_PREFIX = Component.text("[YUM] ").color(NamedTextColor.AQUA);
 
 	// listeners

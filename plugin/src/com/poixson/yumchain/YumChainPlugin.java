@@ -79,7 +79,7 @@ public class YumChainPlugin extends xJavaPlugin {
 
 
 	public YumChainPlugin() {
-		super(YumChainPlugin.class);
+		super();
 	}
 
 
